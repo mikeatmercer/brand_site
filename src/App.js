@@ -1,23 +1,24 @@
 import $ from "jquery";
 import {Component} from "preact";
-
+import TopSection from "./homeSections/topSection.js"
 
 export default class App extends Component {
     constructor(props) {
         super();
         this.state = {
-            text: "teststd"
+            text: "teststd",
+            content: $("#contentBox").html()
         }
         
     }
     componentDidMount() {
-        const content = $("#contentBox").html();
-        $("#contentRow").empty();
-        setTimeout(function(){
-            this.setState({text: "new text"})
-        }.bind(this),2000)
+      
+      //  $("#contentRow").empty();
+        
     }
-    render(p,{text}) {
-        return <div>{text} </div>
+    render(p,{text,content}) {
+        return <div id="global-strategy-app">
+            <TopSection content={content} />
+        </div>
     }
 } 

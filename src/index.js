@@ -11,10 +11,12 @@ import $ from "jquery";
 let _habitat = habitat(App);
 
 (function () {
+
+ 
   if(document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value == 1) {
     return false; 
   }
-  $("#contentRow").attr("style", "display: none !important");
+  //$("#contentRow").attr("style", "display: none !important");
   
   $(document).ready(function(){
     $("#contentRow").before("<div id='preact-widget-container' />");
@@ -26,3 +28,5 @@ let _habitat = habitat(App);
 
 }());
 
+//js-webpart-titleCell
+//Welcome to Brighter - topsection
