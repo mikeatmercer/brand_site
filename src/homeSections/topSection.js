@@ -1,26 +1,21 @@
 import $ from "jquery";
 
-export default function({content}) {
-    console.log("mount");
-    const parser = new DOMParser()
-    var el = parser.parseFromString(content, 'text/html');
-    console.log(el);
-    let titles = el.querySelectorAll(".js-webpart-titleCell");
-    let tEl = null,
-        tText = "Welcome to Brigiiihter"; 
-    $(titles).each(function(i,e){
-        let tSplit = $(e).attr('title').split("-")
-        if(tSplit.length > 1 && tSplit[1].trim() == "topsection") {
-            tEl = e;
-            tText = $(e).text();
-            return false ; 
-        }
-    });
-    let bodyC = parser.parseFromString($(tEl).closest(".s4-wpcell-plain").find(".ms-rtestate-field").html(), "text/html");
-    console.log(bodyC);
 
+export default function({mod}) {
+   if(!mod) {
+       return false; 
+   }
+    const parser = new DOMParser()
+   
+    var newC = parser.parseFromString(mod.html, "text/html");
+    
+    let bodyC = $(newC).find(".ms-rtestate-field");
+    let text = $(bodyC).clone();
+    $(text).find('h1').remove();
+  
     return <div class="tSec">
-       <div class="kicker">{tText}</div> 
-        <h1>{$(bodyC).find("h1").text()}</h1>
+       <div class="kicker">{mod.header}</div> 
+        <h1>{$(newC).find(".ms-rtestate-field h1").text()}</h1>
+        <div class="content" dangerouslySetInnerHTML={{__html: $(text).html()}}  />
     </div>
 }

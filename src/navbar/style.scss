@@ -1,0 +1,17 @@
+$height : 35px;
+
+.barContainer {
+    position:relative;
+    height: $height; 
+}
+.barNav {
+    height: $height;
+    position:relative;
+    background: #00317C;
+    padding: 0 20px;
+    line-height: $height;
+    &.above {
+        position: fixed;
+        z-index: 9999;
+    }
+}
