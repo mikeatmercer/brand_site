@@ -10,8 +10,22 @@ $height : 35px;
     background: #00317C;
     padding: 0 20px;
     line-height: $height;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
     &.above {
         position: fixed;
         z-index: 9999;
+    }
+}
+a.hhome {
+    color: white;
+}
+.lList {
+    display:flex;
+    a {
+        color:#87CBEA;
+        margin-left: 12px;
     }
 }

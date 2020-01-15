@@ -1,9 +1,0 @@
-.globalstrategyapp{
-    position: relative; 
-    width: calc(100% + 20px);
-    left: -10px;
-    
-}
-.globalstrategyapp *, .globalstrategyapp *:before, .globalstrategyapp *:after{
-    box-sizing: border-box;
-}

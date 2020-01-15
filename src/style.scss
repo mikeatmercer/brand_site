@@ -1,0 +1,46 @@
+@font-face{
+    font-family: "Mute";
+    src: url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Mute-Light.woff2') format('woff2'), url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Mute-Light.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face{
+    font-family: "Mute";
+    src: url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Mute-Regular.woff2') format('woff2'), url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Mute-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face{
+    font-family: "Mute";
+    src: url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Mute-Semibold.woff2') format('woff2'), url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Mute-Seminbold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face{
+    font-family: "Grifo";
+    src: url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Grifo S Bold.woff2') format('woff2'), url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Grifo S Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+
+.globalstrategyapp{
+    position: relative; 
+    width: calc(100% + 20px);
+    left: -10px;
+    background: white; 
+    color: #001F37;
+    font-family: "Mute", sans-serif !important;
+    font-size: 16px;
+    font-weight: 400;
+    p {
+       
+        font-size: inherit;
+        color: inherit;
+    }
+ 
+}
+.globalstrategyapp *, .globalstrategyapp *:before, .globalstrategyapp *:after{
+    box-sizing: border-box;
+}

@@ -1,0 +1,56 @@
+@import "../styleVariables.scss";
+
+.cardSection {
+    padding: 48px 0;
+}
+.cGrey {
+    background: #F6F7F9;
+}
+.sectionHeader {
+    padding: 0 20px 48px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    h2 {
+        text-transform: lowercase;
+        color: $slate-kicker;
+        font-size: 26px;
+        margin: 0;
+    }
+    a.backButton {
+        text-decoration: underline;
+        color: $link-blue;
+    }
+}
+.cardList {
+    list-style: none;
+    margin: 0;
+    padding: 0 20px;
+    display:flex; 
+}
+.cardItem {
+    flex: 1;
+    background: red;
+    &:not(:first-child) {
+        margin-left: 24px;
+    }
+    &.behave {
+        background: white;
+        box-shadow: 0 0 4px rgba(30,32,34,0.08), 0 0 4px rgba(30,32,34,0.08)
+    }
+    &.behave {
+        padding: 24px;
+    }
+    .cardKicker {
+        color: $slate-kicker;
+        margin-bottom: 8px;
+    }
+    h2 {
+        font-size: 26px;
+        line-height: (29/26);
+        margin-bottom: 24px;
+    }
+    p {
+        line-height: (24 /16);
+    }
+}
