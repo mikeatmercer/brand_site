@@ -19,6 +19,10 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
         template:"./src/index.ejs"
+    }),
+    new webpack.DefinePlugin({
+      "HOME_URL": JSON.stringify("http://sites.mercer.com/sites/MercerStrategy/SitePages/test%20page.aspx"),
+      "SITE_DOMAIN": JSON.stringify("http://sites.mercer.com/sites/MercerStrategy")
     })
   ],
   externals: {

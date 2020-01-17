@@ -1,13 +1,13 @@
 @import "../styleVariables.scss";
 
 .cardSection {
-    padding: 48px 0;
+    &.greyBG {
+        background: #F6F7F9;
+    }    
 }
-.cGrey {
-    background: #F6F7F9;
-}
+
 .sectionHeader {
-    padding: 0 20px 48px 20px;
+    padding: 48px 20px 48px 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -30,16 +30,11 @@
 }
 .cardItem {
     flex: 1;
-    background: red;
+    padding: 24px;
+    background: white;
+    margin-bottom: 48px;
     &:not(:first-child) {
         margin-left: 24px;
-    }
-    &.behave {
-        background: white;
-        box-shadow: 0 0 4px rgba(30,32,34,0.08), 0 0 4px rgba(30,32,34,0.08)
-    }
-    &.behave {
-        padding: 24px;
     }
     .cardKicker {
         color: $slate-kicker;

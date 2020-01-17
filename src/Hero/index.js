@@ -1,0 +1,42 @@
+import styles from "./styles.scss";
+import sharedStyles from "../sharedStyles.scss";
+import Btn from "../Btn";
+import bodyContent from "../util/bodyContent.js"
+const {
+    tSec,
+    h1,
+    contentBox,
+    kicker,
+    bgImg,
+    content,
+    btnHolder
+} = styles
+
+const {grifoHeadline} = sharedStyles
+
+export default function({mod, clickScroll}) {
+    
+    let body  = bodyContent(mod.html),
+        text = $(body).clone();
+    $(text).find("h1, a, img").remove();
+    let img = $(body).find("img");
+    let imgBg = (img.length) ? <div class={bgImg} style={{backgroundImage: `url(${$(img).attr("src")})`}}></div> : null;
+    let attClasses = mod.attributes.map(e => styles[e]).join(" ");
+    let btns = [];
+    $(body).find("a").each(function(i,e){
+        btns.push(
+            <Btn style={"reverse"} text={$(e).text()} clickHandler={clickScroll} href={$(e).attr('href')} />
+        );
+    });
+    return <div class={`${tSec} ${attClasses}`}>
+        {imgBg}
+        <div class={contentBox}>
+            <div class={kicker}>{mod.header}</div>
+            <h1 class={`${h1} ${grifoHeadline}`}>{$(body).find("h1").text()}</h1>
+            <div class={content}>{$(text).text()}</div>
+           <div class={btnHolder} >{btns}</div>
+        </div>
+        
+
+    </div>
+}

@@ -6,7 +6,10 @@ $height : 35px;
 }
 .barNav {
     height: $height;
-    position:relative;
+    position:absolute;
+    width: 100%; 
+    left: 0;
+    top: 0;
     background: #00317C;
     padding: 0 20px;
     line-height: $height;

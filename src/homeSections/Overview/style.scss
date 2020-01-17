@@ -1,0 +1,52 @@
+.overviewContainer {
+    height: 440px;
+    position:relative; 
+}
+.textContainer {
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 358px;
+    padding: 72px 24px 0 20px; 
+}
+.headerSize {
+    font-size: 32px;
+    line-height: (35/32);
+}
+h2.h2 {
+
+    margin-bottom: 24px;
+}
+.diagram {
+    position:absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: calc(100% - 358px);
+    background: black;
+    a {
+        color: white;
+        text-decoration: none !important;
+        position: absolute;
+        display:block;
+        text-align:center;
+        &.core, &.executive {
+            top: 148px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &.behave, &.enable {
+            top: 130px;
+            width: 153px;
+            left: 0;
+        }
+        &.enable {
+            left: auto;
+            right: 0;
+        }
+        &.executive {
+            top: auto;
+            bottom: 36px;
+        }
+    }
+}

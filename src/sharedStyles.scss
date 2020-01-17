@@ -1,10 +1,23 @@
-.greenGradient {
+@mixin green-gradient() {
     background: rgb(0,172,65);
     background: linear-gradient(225deg, rgba(0,172,65,1) 0%, rgba(0,157,224,1) 100%);
+  }
+  
+
+.greenGradient {
+    @include green-gradient();
 }
 .grifoHeadline {
     font-family: "Grifo", "Times New Roman", serif !important; 
     font-weight: bold;
+}
+.readingText {
+    font-size: 16px;
+    line-height: (24 / 16);
+    p {
+        font-size: inherit;
+        line-height: inherit;
+    }
 }
 .muteImportant {
     font-family: "Mute", sans-serif !important;
@@ -12,3 +25,4 @@
 .makeNavy {
     color: #001F37 !important;
 }
+

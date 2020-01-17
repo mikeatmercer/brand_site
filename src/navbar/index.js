@@ -14,13 +14,14 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            aboveFold : false
+            aboveFold : false,
+            sections : JSON.parse(localStorage.getItem("subNav")) || []
         }
         
     }
     componentDidMount() {
         $("#s4-workspace").on("scroll",function(e){
-            if($(this.container).offset().top >= $("#s4-workspace").offset().top) {  
+            if($(this.container).offset().top > $("#s4-workspace").offset().top) {  
                 if(this.state.aboveFold) {
                     this.setState({aboveFold: false})
                 }
@@ -30,6 +31,26 @@ export default class App extends Component {
                 }
             }
         }.bind(this));
+        $.ajax({
+            type: 'GET',
+            url: `${SITE_DOMAIN}/_api/web/lists/GetByTitle('SubNav')/items`,
+            headers: {
+              "accept": "application/json;odata=verbose",
+            },
+            success: (data) => {
+                if(!data.d.results.length) {
+                    return; 
+                }
+              let items = data.d.results.map(e => {
+                  return {
+                      title: e.Title,
+                      hash: e.Hash,
+                  }
+              });
+              this.setState({sections: items});
+              localStorage.setItem("subNav", JSON.stringify(items));
+            }
+        });
     }
     render(p,s) {
       
@@ -39,13 +60,7 @@ export default class App extends Component {
             left: (s.aboveFold) ? $(this.container).offset().left : null,
             width: (s.aboveFold) ? $(this.container).width() : null
         }
-        let links = p.mods.map(function(e){
-            if(e.type == "overview") {
-                return false; 
-            }
-            let title = (e.type == "topsection") ? "Home" : e.header
-            return <a href={`#${e.type}`} onClick={p.clickScroll}>{title}</a>
-        });
+        let links = s.sections.map(e => <a href={`#${e.hash}`} onClick={p.clickScroll}>{e.title}</a>);
     
         return <div ref={con => this.container = con} class={barContainer}>
             <nav class={navClass} style={fixedStyles}>

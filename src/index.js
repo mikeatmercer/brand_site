@@ -18,7 +18,7 @@ let _habitat = habitat(App);
   if(document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value == 1) {
     return false; 
   }
-  $("#contentRow").attr("style", "visibility: hidden !important");
+  //$("#contentRow").attr("style", "visibility: hidden !important");
   $("#contentRow .community-name, #contentRow .social-like, #contentRow .page-title").remove();
   
   $(document).ready(function(){

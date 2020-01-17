@@ -1,9 +1,9 @@
 import $ from "jquery";
 import cardStyles from "./cardStyles.scss";
 import shareStyles from "../sharedStyles.scss";
+import bodyContent from "../util/bodyContent.js";
 const {
     cardSection,
-    cGrey,
     sectionHeader,
     backButton,
     cardList,
@@ -16,9 +16,9 @@ const {
     makeNavy
 } = shareStyles
 
-function CardList({mod}) {
-    let dom = new DOMParser().parseFromString(mod.html, "text/html"),
-        list = $(dom).find(".ms-rtestate-field ul:first"),
+function CardList({mod, attrClass}) {
+    
+    let list = $(bodyContent(mod.html)).find("ul:first"),
         cards = [];
     $(list).find("> li").each(function(i,e){
         cards.push({
@@ -40,19 +40,19 @@ function CardList({mod}) {
             <p>{e.content}</p>
         </li>
     })
-    return <ul class={cardList}>{CList}</ul>
+    return <ul class={`${cardList} ${attrClass}`}>{CList}</ul>
 }
 
 
 
 
 export default function({mod,clickScroll}) {
-    let gStyle = (mod.type == "behave" || mod.type == "enable") ? cGrey : null;
-    return <div class={`${cardSection} ${gStyle}`}>
+    let attrClass = mod.attributes.map(e => cardStyles[e]).join(" ")
+    return <div class={`${cardSection} ${attrClass}`}>
         <div class={sectionHeader}>
             <h2 class={muteImportant}>{mod.header}</h2>
             <a class={backButton} href="#overview" onClick={clickScroll}>Back to overview</a>
         </div>
-        <CardList mod={mod}/>
+        <CardList mod={mod} attrClass={attrClass}/>
     </div>
 }
