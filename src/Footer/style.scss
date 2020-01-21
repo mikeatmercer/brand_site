@@ -1,0 +1,10 @@
+.btnContainer {
+    padding: 48px;
+    display:flex;
+    background: #00AC41;
+    justify-content: center;
+    background: linear-gradient(188.39deg, #00AC41 0%, #009DE0 100%);
+    > * {
+        margin: 0 12px; 
+    }
+}

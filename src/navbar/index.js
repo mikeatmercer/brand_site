@@ -36,6 +36,7 @@ export default class App extends Component {
 
     }
     componentDidMount() {
+      
         this.setState({lOffset :$(this.container).offset().left})
         $("#s4-workspace").on("scroll",function(e){
             this.scrollCheck();
@@ -65,18 +66,22 @@ export default class App extends Component {
         });
     }
     render(p,s) {
-      
-        let navClass = (s.aboveFold) ? `${barNav} ${above}` : barNav;
-        let fixedStyles = {
+   
+        let isHome = (window.location.href.split("#")[0].toLowerCase() == HOME_URL.toLowerCase()),
+            href = (isHome) ? "" : `${HOME_URL}`,
+            scroller = (isHome) ? p.clickScroll : null,
+            navClass = (s.aboveFold) ? `${barNav} ${above}` : barNav,
+            fixedStyles = {
             top: (s.aboveFold) ?  $("#s4-workspace").offset().top : null,
             left: (s.aboveFold) ? s.lOffset : null,
             width: (s.aboveFold) ? $(this.container).width() : null
         }
-        let links = s.sections.map(e => <a href={`#${e.hash}`} onClick={p.clickScroll}>{e.title}</a>);
+  
+        let links = s.sections.map(e => <a href={`${href}#${e.hash}`} onClick={scroller}>{e.title}</a>);
     
         return <div ref={con => this.container = con} class={barContainer}>
             <nav class={navClass} style={fixedStyles}>
-                <a class={hhome} href="home">Our Strategy</a>
+                <a class={hhome} href={`${HOME_URL}`}>Our Strategy</a>
                 <div class={lList}>
                     {links}
                 </div>

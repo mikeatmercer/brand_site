@@ -6,7 +6,37 @@ const webpack = require("webpack");
 const ENV = process.env.NODE_ENV || 'development';
 
 const WORKIP = "10.91.37.19";
-const HOMEIP = ""
+const HOMEIP = "10.3.57.245";
+
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const devCSSLoad = [
+  {loader: "style-loader"},
+  {
+      loader: "css-loader",
+      options: {
+          modules: {
+            mode: "local",
+            localIdentName: (ENV == "production") ? '[hash:base64:4]' : '[name]__[local]___[hash:base64:4]'
+          }            
+      }
+  },
+  {loader: "sass-loader"}
+];
+const prodCSSLoad = [
+  MiniCssExtractPlugin.loader,
+  {
+    loader: "css-loader",
+    options: {
+        modules: {
+          mode: "local",
+          localIdentName: (ENV == "production") ? '[hash:base64:4]' : '[name]__[local]___[hash:base64:4]'
+        }            
+    }
+},
+{loader: "sass-loader"}
+]
+
 
 module.exports = {
   entry: './src/index.js',
@@ -24,7 +54,11 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "HOME_URL": JSON.stringify("http://sites.mercer.com/sites/MercerStrategy/SitePages/test%20page.aspx"),
-      "SITE_DOMAIN": JSON.stringify("http://sites.mercer.com/sites/MercerStrategy")
+      "SITE_DOMAIN": JSON.stringify("http://sites.mercer.com/sites/MercerStrategy"),
+      "PRODUCTION_BUILD": (ENV == "production") ? JSON.stringify(true) : JSON.stringify(false)
+    }),
+    new MiniCssExtractPlugin({
+      filename: "style.css"
     })
   ],
   externals: {
@@ -34,19 +68,8 @@ module.exports = {
       rules: [
           {
             test: /\.(scss|css)$/,
-            use: [
-              {loader: "style-loader"},
-              {
-                  loader: "css-loader",
-                  options: {
-                      modules: {
-                        mode: "local",
-                        localIdentName: (ENV == "production") ? '[hash:base64:4]' : '[name]__[local]___[hash:base64:4]'
-                      }            
-                  }
-              },
-              {loader: "sass-loader"}
-            ]
+            use: (ENV == "production") ? prodCSSLoad : devCSSLoad
+        
           },
           {
             test: /\.(js|jsx)$/,
@@ -68,8 +91,8 @@ module.exports = {
       contentBase: "./src",
       watchContentBase: true,
       host: "0.0.0.0",
-      publicPath: "http://10.3.57.245:8080/",
-      sockHost: "10.3.57.245",
+      publicPath: `http://${WORKIP}:8080/`,
+      sockHost: WORKIP,
       sockPort: "8080",
       disableHostCheck: true
   },

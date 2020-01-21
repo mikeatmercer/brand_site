@@ -6,6 +6,8 @@ import CardSection from "./cardSections";
 import HTMLclean from "./util/HTMLclean.js";
 import style from "./style.scss";
 import Hero from "./Hero";
+import Footer from "./Footer"; 
+import {varFind} from "./util/attFinders.js";
 
 export default class App extends Component {
     constructor(props) {
@@ -27,7 +29,8 @@ export default class App extends Component {
 
         this.state = {
             mods: mods,
-            sections : ["topsection","overview","behave", "core"]
+          
+            
         }
         this.scrollSections = [];
         this.modFilter = this.modFilter.bind(this);
@@ -42,10 +45,8 @@ export default class App extends Component {
     }
     scroller(section) {
         
-        
-
         let box = $("#s4-workspace"),
-            toMove = (section === "top") ? this.scrollSections[0] : this.scrollSections[section];
+            toMove = (section === "top") ? this.scrollSections[Object.keys(this.scrollSections)[0]] : this.scrollSections[section];
         $(box).animate({
             scrollTop: $(box).scrollTop() + ($(toMove).offset().top - $(box).offset().top - 35)
         })
@@ -56,7 +57,10 @@ export default class App extends Component {
         this.scroller(e.target.getAttribute("href").replace("#",""))
     }
     componentDidMount() {
-       // $("#contentRow").remove();
+        if(PRODUCTION_BUILD) {
+            $("#contentRow").remove();
+        }
+        
         var l = location.hash.replace("#","");
         if(Object.keys(this.scrollSections).indexOf(l) > -1) {
             this.scroller(l)
@@ -65,19 +69,49 @@ export default class App extends Component {
   
     }
     render(p,{content}) {
-        let cardSections = ["behave","core","enable"].map((e) => <div ref={con => this.scrollSections[e] = con} id={e}><CardSection clickScroll={this.clickScroll} mod={this.modFilter(e)}/></div>)
+        let realSections = ["Hero", "Overview", "Cards" ];
+
+        let cardSections = this.state.mods.map(function(e){
+            let type = varFind(e.attributes, "type");
+            if(realSections.indexOf(type) < 0) {
+                return; 
+            }
+            let chi = null;
+            switch(type) {
+                case "Hero":
+                    chi =  <Hero mod={e} clickScroll={this.clickScroll} />
+                    break;
+                case "Overview":
+                    chi = <Overview mod={e} clickScroll={this.clickScroll} />
+                    break; 
+                case "Cards":
+                    chi = <CardSection mod={e} clickScroll={this.clickScroll} />
+            }
+            if(!chi) {
+                return;
+            }
+
+            return <div id={e.type} ref={con => this.scrollSections[e.type] = con}>{chi}</div>
+
+        }.bind(this));
+
+        //let cardSections = ["behave","core","enable"].map((e) => <div ref={con => this.scrollSections[e] = con} id={e}><CardSection clickScroll={this.clickScroll} mod={this.modFilter(e)}/></div>)
         return <div class={style.globalstrategyapp}>
             <NavBar clickScroll={this.clickScroll} mods={this.state.mods} />
-            <div id="topsection" ref={con => this.scrollSections["topsection"] = con}>
+            {cardSections}   
+            <Footer clickScroll={this.clickScroll} />
+        </div>
+    }
+} 
+
+
+/*
+<div id="topsection" ref={con => this.scrollSections["topsection"] = con}>
                 <Hero clickScroll={this.clickScroll} mod={this.modFilter("topsection")} />
             </div>
             <div id="overview" ref={con => this.scrollSections["overview"] = con}>
                 <Overview clickScroll={this.clickScroll} mod={this.modFilter("overview")} />
             </div>
             {cardSections}
-            
-            
-            
-        </div>
-    }
-} 
+
+*/

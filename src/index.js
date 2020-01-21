@@ -18,8 +18,15 @@ let _habitat = habitat(App);
   if(document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value == 1) {
     return false; 
   }
-  //$("#contentRow").attr("style", "visibility: hidden !important");
+  if(PRODUCTION_BUILD) {
+    $("#contentRow").attr("style", "visibility: hidden !important"); 
+  }
   $("#contentRow .community-name, #contentRow .social-like, #contentRow .page-title").remove();
+
+  if(PRODUCTION_BUILD) {
+    $("head").append(`<link rel="stylesheet" text="text/css" href="${SITE_DOMAIN}/Style%20Library/site_assets/style.css"/>`)
+  
+  }
   
   $(document).ready(function(){
     $("#contentRow").before("<div id='preact-widget-container' style='width: 1010px' />");

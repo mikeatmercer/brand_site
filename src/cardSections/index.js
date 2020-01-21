@@ -18,7 +18,10 @@ const {
     cardLinka,
     cardLinksvg,
     cardLinkspan,
-    wLink
+    wLink,
+    linkOverlay,
+    iconHolder, 
+    cardIcon
 } = cardStyles
 const {
     muteImportant,
@@ -34,9 +37,10 @@ class CardRow extends Component {
         this.state = {
             hHeight : 0
         }
+        this.checkHeight = this.checkHeight.bind(this);
         this.headers = [];
     }
-    componentDidMount() {
+    checkHeight() {
         let h = 0
         this.headers.forEach(function(e){
             let nh = $(e).height()
@@ -48,23 +52,34 @@ class CardRow extends Component {
             this.setState({hHeight: h});
         }
     }
+    componentDidMount() {
+       // this.checkHeight(); 
+        $(window).load(function(){
+            this.checkHeight();
+        }.bind(this))
+    }
 
     render(p,{hHeight}) {
         let headerH = hHeight || "auto";
         let CList = p.items.map((e,i) => {
+        
             let header  = (e.title) ? <h2 style={{height: headerH}} ref={h => this.headers[i] = h} class={`${grifoHeadline} ${makeNavy}`}>{e.title}</h2> : null;
-            let img = (e.imgURL) ? <div class={cardImg} style={{backgroundImage: `url(${e.imgURL})`}}></div> : null;
+            let img = (e.imgURL && !attTrue(e.atts, "icons") ) ? <div class={cardImg} style={{backgroundImage: `url(${e.imgURL})`}}></div> : null;
             let link = (e.linkURL) ? <CardLink text={e.linkText} url={e.linkURL} /> : null
             let wLinkClass = (e.linkURL) ? wLink : null
+            let linkCover = (e.linkURL) ? <a  href={e.linkURL} class={linkOverlay} /> : null;
+            let icon = (e.imgURL && attTrue(e.atts, "icons") ) ? <div class={iconHolder}><img src={e.imgURL} class={cardIcon}/></div> : null; 
+            let kicker = (e.kicker) ? <div class={cardKicker}>{e.kicker}</div> : null;
              return <div class={`${cardItem} ${p.attrClass} ${wLinkClass}`}>
                  {img}
+                 {icon}
                  <div class={cardText}>
-                     <div class={cardKicker}>{e.kicker}</div>
+                     {kicker}
                      {header}
                      <div class={readingText}>{e.content}</div>
                      {link}
                  </div>
-     
+                {linkCover}
              </div>
          })
 
@@ -92,7 +107,8 @@ function CardList({mod, attrClass}) {
             title : $(e).find("h2:first").text() || null, 
             content: $(text).text() || null,
             linkText : $(e).find("a:first").text() || "Read More",
-            linkURL : $(e).find("a:first").attr("href") || null
+            linkURL : $(e).find("a:first").attr("href") || null,
+            atts: mod.attributes,
         });
   
     });
@@ -123,7 +139,7 @@ function CardList({mod, attrClass}) {
         iter++;
     });
     
-    let cardrows = rows.map(e => <CardRow items={e} />);
+    let cardrows = rows.map(e => <CardRow attrClass={attrClass} items={e} />);
 
     
  
