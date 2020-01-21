@@ -27,7 +27,7 @@ export default class App extends Component {
 
         this.state = {
             mods: mods,
-            sections : ["topsection","overview","behave"]
+            sections : ["topsection","overview","behave", "core"]
         }
         this.scrollSections = [];
         this.modFilter = this.modFilter.bind(this);
@@ -58,14 +58,14 @@ export default class App extends Component {
     componentDidMount() {
        // $("#contentRow").remove();
         var l = location.hash.replace("#","");
-        if(this.state.sections.indexOf(l) > -1) {
+        if(Object.keys(this.scrollSections).indexOf(l) > -1) {
             this.scroller(l)
-        }
+        }    
    
   
     }
     render(p,{content}) {
-        let cardSections = ["behave"].map((e) => <div ref={con => this.scrollSections[e] = con} id={e}><CardSection clickScroll={this.clickScroll} mod={this.modFilter(e)}/></div>)
+        let cardSections = ["behave","core","enable"].map((e) => <div ref={con => this.scrollSections[e] = con} id={e}><CardSection clickScroll={this.clickScroll} mod={this.modFilter(e)}/></div>)
         return <div class={style.globalstrategyapp}>
             <NavBar clickScroll={this.clickScroll} mods={this.state.mods} />
             <div id="topsection" ref={con => this.scrollSections["topsection"] = con}>

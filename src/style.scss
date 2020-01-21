@@ -1,3 +1,6 @@
+@import "./styleVariables.scss";
+
+
 @font-face{
     font-family: "Mute";
     src: url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Mute-Light.woff2') format('woff2'), url('http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/fonts/Mute-Light.woff') format('woff');
@@ -34,6 +37,7 @@
     font-family: "Mute", sans-serif !important;
     font-size: 16px;
     font-weight: 400;
+
     p {
        
         font-size: inherit;

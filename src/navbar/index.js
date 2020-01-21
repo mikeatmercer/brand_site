@@ -15,22 +15,34 @@ export default class App extends Component {
         super(props);
         this.state = {
             aboveFold : false,
-            sections : JSON.parse(localStorage.getItem("subNav")) || []
+            sections : JSON.parse(localStorage.getItem("subNav")) || [],
+            lOffset: 0
         }
+        this.scrollCheck = this.scrollCheck.bind(this);
         
     }
-    componentDidMount() {
-        $("#s4-workspace").on("scroll",function(e){
-            if($(this.container).offset().top > $("#s4-workspace").offset().top) {  
-                if(this.state.aboveFold) {
-                    this.setState({aboveFold: false})
-                }
-            } else {
-                if(!this.state.aboveFold) {
-                    this.setState({aboveFold: true});
-                }
+    scrollCheck() {
+
+        if($(this.container).offset().top > $("#s4-workspace").offset().top) {  
+            if(this.state.aboveFold) {
+                this.setState({aboveFold: false})
             }
+        } else {
+            if(!this.state.aboveFold) {
+                this.setState({aboveFold: true,lOffset :$(this.container).offset().left});
+                this.setState()
+            }
+        }
+
+    }
+    componentDidMount() {
+        this.setState({lOffset :$(this.container).offset().left})
+        $("#s4-workspace").on("scroll",function(e){
+            this.scrollCheck();
         }.bind(this));
+        $(window).resize(function(){
+            this.setState({lOffset : $(this.container).offset().left})
+        }.bind(this))
         $.ajax({
             type: 'GET',
             url: `${SITE_DOMAIN}/_api/web/lists/GetByTitle('SubNav')/items`,
@@ -57,7 +69,7 @@ export default class App extends Component {
         let navClass = (s.aboveFold) ? `${barNav} ${above}` : barNav;
         let fixedStyles = {
             top: (s.aboveFold) ?  $("#s4-workspace").offset().top : null,
-            left: (s.aboveFold) ? $(this.container).offset().left : null,
+            left: (s.aboveFold) ? s.lOffset : null,
             width: (s.aboveFold) ? $(this.container).width() : null
         }
         let links = s.sections.map(e => <a href={`#${e.hash}`} onClick={p.clickScroll}>{e.title}</a>);

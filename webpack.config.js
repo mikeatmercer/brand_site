@@ -5,6 +5,8 @@ const webpack = require("webpack");
 
 const ENV = process.env.NODE_ENV || 'development';
 
+const WORKIP = "10.91.37.19";
+const HOMEIP = ""
 
 module.exports = {
   entry: './src/index.js',
@@ -66,8 +68,8 @@ module.exports = {
       contentBase: "./src",
       watchContentBase: true,
       host: "0.0.0.0",
-      publicPath: "http://10.91.37.19:8080/",
-      sockHost: "10.91.37.19",
+      publicPath: "http://10.3.57.245:8080/",
+      sockHost: "10.3.57.245",
       sockPort: "8080",
       disableHostCheck: true
   },
