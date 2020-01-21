@@ -4,6 +4,7 @@ import shareStyles from "../sharedStyles.scss";
 import bodyContent from "../util/bodyContent.js";
 import {Component} from "preact";
 import {attTrue} from "../util/attFinders.js"
+import isHome from "../util/isHome.js";
 const {
     cardSection,
     sectionHeader,
@@ -152,10 +153,11 @@ function CardList({mod, attrClass}) {
 
 export default function({mod,clickScroll}) {
     let attrClass = mod.attributes.map(e => cardStyles[e]).join(" ")
+    let overviewBtn = (isHome())? <a class={backButton} href="#overview" onClick={clickScroll}>Back to overview</a> : null;
     return <div class={`${cardSection} ${attrClass}`}>
         <div class={sectionHeader}>
             <h2 class={muteImportant}>{mod.header}</h2>
-            <a class={backButton} href="#overview" onClick={clickScroll}>Back to overview</a>
+            {overviewBtn}
         </div>
         <CardList mod={mod} attrClass={attrClass}/>
     </div>

@@ -1,6 +1,7 @@
 import $ from "jquery";
 import {Component} from "preact";
 import style from "./style.scss";
+import isHome from "../util/isHome.js";
 
 const {
     barContainer,
@@ -67,9 +68,9 @@ export default class App extends Component {
     }
     render(p,s) {
    
-        let isHome = (window.location.href.split("#")[0].toLowerCase() == HOME_URL.toLowerCase()),
-            href = (isHome) ? "" : `${HOME_URL}`,
-            scroller = (isHome) ? p.clickScroll : null,
+        
+        let    href = (isHome()) ? "" : `${HOME_URL}`,
+            scroller = (isHome()) ? p.clickScroll : null,
             navClass = (s.aboveFold) ? `${barNav} ${above}` : barNav,
             fixedStyles = {
             top: (s.aboveFold) ?  $("#s4-workspace").offset().top : null,

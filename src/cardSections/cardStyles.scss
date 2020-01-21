@@ -20,6 +20,9 @@
     a.backButton {
         text-decoration: underline;
         color: $link-blue;
+        &:hover {
+            color: #007bb7;
+        }
     }
 }
 .cardList {

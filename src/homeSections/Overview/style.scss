@@ -1,3 +1,5 @@
+@import "../../styleVariables.scss";
+
 .overviewContainer {
     height: 440px;
     position:relative; 
@@ -23,7 +25,8 @@ h2.h2 {
     top: 0;
     height: 100%;
     width: calc(100% - 358px);
-    background: black;
+    background: $bg-blue url("http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/img/overview_bg.jpg") no-repeat center center;
+    background-size: cover; 
     a {
         color: white;
         text-decoration: none !important;

@@ -6,6 +6,7 @@ import CardSection from "./cardSections";
 import HTMLclean from "./util/HTMLclean.js";
 import style from "./style.scss";
 import Hero from "./Hero";
+import TopText from "./TopText";
 import Footer from "./Footer"; 
 import {varFind} from "./util/attFinders.js";
 
@@ -69,14 +70,15 @@ export default class App extends Component {
   
     }
     render(p,{content}) {
-        let realSections = ["Hero", "Overview", "Cards" ];
-
+        let realSections = ["Hero", "Overview", "Cards" , "SummaryText"];
+    
         let cardSections = this.state.mods.map(function(e){
             let type = varFind(e.attributes, "type");
             if(realSections.indexOf(type) < 0) {
                 return; 
             }
             let chi = null;
+         
             switch(type) {
                 case "Hero":
                     chi =  <Hero mod={e} clickScroll={this.clickScroll} />
@@ -86,6 +88,10 @@ export default class App extends Component {
                     break; 
                 case "Cards":
                     chi = <CardSection mod={e} clickScroll={this.clickScroll} />
+                    break;
+                case "SummaryText":
+                    chi = <TopText mod={e} clickScroll={this.clickScroll} />
+                    break;
             }
             if(!chi) {
                 return;

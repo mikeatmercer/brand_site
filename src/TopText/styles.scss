@@ -1,0 +1,19 @@
+@import "../styleVariables.scss";
+
+.topText {
+    background: $bg-blue; 
+  
+    
+    padding:48px 20px 48px 20px;
+    color: white; 
+}
+.textContainer {
+    column-count: 2;
+    column-gap: 24px;
+   
+    &.shortText {
+        column-count:1; 
+        width: 652px; 
+    }
+    
+}
