@@ -7,6 +7,8 @@ import HTMLclean from "./util/HTMLclean.js";
 import style from "./style.scss";
 import Hero from "./Hero";
 import TopText from "./TopText";
+import Accordion from "./Accordion";
+import PageCopy from "./PageCopy";
 import Footer from "./Footer"; 
 import {varFind} from "./util/attFinders.js";
 
@@ -49,7 +51,7 @@ export default class App extends Component {
         let box = $("#s4-workspace"),
             toMove = (section === "top") ? this.scrollSections[Object.keys(this.scrollSections)[0]] : this.scrollSections[section];
         $(box).animate({
-            scrollTop: $(box).scrollTop() + ($(toMove).offset().top - $(box).offset().top - 35)
+            scrollTop: $(box).scrollTop() + ($(toMove).offset().top - $(box).offset().top )
         })
      
     }
@@ -69,10 +71,10 @@ export default class App extends Component {
    
   
     }
-    render(p,{content}) {
-        let realSections = ["Hero", "Overview", "Cards" , "SummaryText"];
+    render(p,{mods}) {
+        let realSections = ["Hero", "Overview", "Cards" , "SummaryText", "AccordionHeader", "PageCopy"];
     
-        let cardSections = this.state.mods.map(function(e){
+        let cardSections = mods.map(function(e){
             let type = varFind(e.attributes, "type");
             if(realSections.indexOf(type) < 0) {
                 return; 
@@ -90,8 +92,13 @@ export default class App extends Component {
                     chi = <CardSection mod={e} clickScroll={this.clickScroll} />
                     break;
                 case "SummaryText":
-                    chi = <TopText mod={e} clickScroll={this.clickScroll} />
+                    chi = <TopText mod={e} allMods={mods} clickScroll={this.clickScroll} />
                     break;
+                case "AccordionHeader":
+                    chi = <Accordion mod={e} allMods={mods} clickScroll={this.clickScroll} /> 
+                    break;
+                case "PageCopy" : 
+                    chi = <PageCopy mod={e} />
             }
             if(!chi) {
                 return;

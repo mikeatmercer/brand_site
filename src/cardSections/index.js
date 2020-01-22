@@ -5,10 +5,9 @@ import bodyContent from "../util/bodyContent.js";
 import {Component} from "preact";
 import {attTrue} from "../util/attFinders.js"
 import isHome from "../util/isHome.js";
+import SectionHeader from "../SectionHeader";
 const {
     cardSection,
-    sectionHeader,
-    backButton,
     cardList,
     cardItem,
     cardKicker,
@@ -28,7 +27,8 @@ const {
     muteImportant,
     grifoHeadline,
     makeNavy,
-    readingText
+    readingText,
+    headerLink
 } = shareStyles
 
 class CardRow extends Component {
@@ -114,15 +114,16 @@ function CardList({mod, attrClass}) {
   
     });
 
-    let rowLength = (attTrue(mod.attributes, "rows")) ? 3 : 99999,
+    let rowLength = (attTrue(mod.attributes, "oneLine")) ? 999 : 3,
         rowBlock = [],
         rows = [],
         iter = 1;
-    if(attTrue(mod.attributes, "rows")) {
+    if(attTrue(mod.attributes, "oneLine")) {
+        rows.push[cards]; 
+        
+    } else {
         while (cards.length > 0)
             rows.push(cards.splice(0, rowLength))
-    } else {
-        rows.push[cards]; 
     }
     cards.forEach(function(e,i){
         rowBlock.push(e);
@@ -153,12 +154,11 @@ function CardList({mod, attrClass}) {
 
 export default function({mod,clickScroll}) {
     let attrClass = mod.attributes.map(e => cardStyles[e]).join(" ")
-    let overviewBtn = (isHome())? <a class={backButton} href="#overview" onClick={clickScroll}>Back to overview</a> : null;
+    let overviewBtn = (isHome())? <a href="#overview" onClick={clickScroll}>Back to overview</a> : null;
+    let sub = $(bodyContent(mod.html)).find("h3:first");
     return <div class={`${cardSection} ${attrClass}`}>
-        <div class={sectionHeader}>
-            <h2 class={muteImportant}>{mod.header}</h2>
-            {overviewBtn}
-        </div>
+        <SectionHeader link={overviewBtn} title={mod.header} subTitle={(sub.length)? $(sub).text() : null}/>
+        
         <CardList mod={mod} attrClass={attrClass}/>
     </div>
 }

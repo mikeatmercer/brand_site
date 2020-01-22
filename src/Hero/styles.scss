@@ -28,6 +28,9 @@ h1.h1 {
     .tall & {
         font-size: 90px;
     }
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 .contentBox {
     width: 652px;

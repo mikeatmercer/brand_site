@@ -18,6 +18,7 @@ let _habitat = habitat(App);
   if(document.forms[MSOWebPartPageFormName].MSOLayout_InDesignMode.value == 1) {
     return false; 
   }
+  global.accordionListener = {};
   if(PRODUCTION_BUILD) {
     $("#contentRow").attr("style", "visibility: hidden !important"); 
   }

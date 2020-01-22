@@ -1,0 +1,70 @@
+@import "../styleVariables.scss";
+
+.accordion {
+    padding-bottom: 48px;
+}
+
+.aItem {
+    margin: 0 20px;
+    border-top: 1px solid #D5D9E0;
+    
+    &:last-child {
+        border-bottom: 1px solid #D5D9E0;
+    }
+    &.isOpen {
+        border-top-color: #003865;
+    }
+}
+.textContent {
+    display:none; 
+
+}
+.aHeader {
+    position: relative;
+    padding: 16px 0 16px 38px;
+    display:block;
+    &Container {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+    &Text {
+        color: $link-blue;
+        font-weight: 700; 
+    }
+    &:before, &:after {
+        display:block;
+        content: '';
+        width: 14px;
+        height: 2px;
+        background: $slate-kicker;
+        position: absolute;
+        left: 0;
+        top: calc(50% - 1px);
+    }
+    &.isOpen {
+        &:after {
+            width: 2px;
+            height: 14px;
+            left: 6px;
+            top: calc(50% - 7px);
+        }
+    }
+    &:hover {
+        .aHeaderText, .localHeader {
+            color: #007bb7;
+        }
+        
+    }
+    
+
+}
+.icon {
+    position:absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    
+}

@@ -1,0 +1,28 @@
+@import "../styleVariables.scss";
+
+
+.sectionHeader {
+    padding: 48px 20px 48px 20px;
+    h2 {
+   
+        color: $slate-kicker;
+        font-size: 26px;
+        margin: 0;
+    }
+    a {
+        text-decoration: underline;
+        color: $link-blue;
+        &:hover {
+            color: #007bb7;
+        }
+    }
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.subTitle {
+    width: $text-half-width;
+    margin-top: 12px; 
+}

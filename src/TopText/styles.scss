@@ -6,6 +6,13 @@
     
     padding:48px 20px 48px 20px;
     color: white; 
+    &.wRight {
+        display:flex;
+        justify-content: space-between;
+    }
+}
+.rightCol {
+    width: 340px;
 }
 .textContainer {
     column-count: 2;
@@ -13,7 +20,17 @@
    
     &.shortText {
         column-count:1; 
-        width: 652px; 
+        width: $text-full-width; 
+    }
+    .wRight & {
+        column-count: 1;
+        width: $text-half-width;
     }
     
+}
+h2.kicker {
+    color: white; 
+    font-size: 26px;
+    line-height: (33 / 26);
+    margin-bottom: 24px; 
 }

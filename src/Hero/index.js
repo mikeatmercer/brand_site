@@ -28,13 +28,14 @@ export default function({mod, clickScroll}) {
             <Btn style={"reverse"} text={$(e).text()} clickHandler={clickScroll} href={$(e).attr('href')} />
         );
     });
+    
     return <div class={`${tSec} ${attClasses}`}>
         {imgBg}
         <div class={contentBox}>
             <div class={kicker}>{mod.header}</div>
             <h1 class={`${h1} ${grifoHeadline}`}>{$(body).find("h1").text()}</h1>
-            <div class={content}>{$(text).text()}</div>
-           <div class={btnHolder} >{btns}</div>
+            {($(text).text().trim().length)?  <div class={content}>{$(text).text()}</div> : null}
+            {(btns.length)? <div class={btnHolder} >{btns}</div> : null}
         </div>
         
 
