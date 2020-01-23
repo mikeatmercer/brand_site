@@ -28,6 +28,9 @@
         line-height: (29/26);
         margin-bottom: 8px;
     }
+    ul, ol {
+        margin: 0 0 1em 0; 
+    }
 }
 .muteImportant {
     font-family: "Mute", sans-serif !important;

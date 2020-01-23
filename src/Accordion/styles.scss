@@ -2,6 +2,7 @@
 
 .accordion {
     padding-bottom: 48px;
+   
 }
 
 .aItem {
@@ -35,19 +36,23 @@
     &:before, &:after {
         display:block;
         content: '';
-        width: 14px;
-        height: 2px;
         background: $slate-kicker;
         position: absolute;
         left: 0;
         top: calc(50% - 1px);
+        width: 14px;
+        height: 2px;
+    }   
+    &:after {
+        width: 2px;
+        height: 14px;
+        left: 6px;
+        top: calc(50% - 7px);
     }
     &.isOpen {
         &:after {
-            width: 2px;
-            height: 14px;
-            left: 6px;
-            top: calc(50% - 7px);
+            display:none; 
+            
         }
     }
     &:hover {

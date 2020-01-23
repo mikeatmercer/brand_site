@@ -49,9 +49,10 @@ export default class Section extends Component {
         
     }
     componentDidMount() {
-        $(global.accordionListener).on(`expand_${this.props.section}`, e => {
-            this.slideBox(true);
-        })
+        $(global.accordionListener).on(`expand_${this.props.section}`, (e,state) => {
+            
+            this.slideBox(!state);
+        } )
     }
 
     render({mod},{open}) {

@@ -49,7 +49,7 @@ export default class App extends Component {
     scroller(section) {
         
         let box = $("#s4-workspace"),
-            toMove = (section === "top") ? this.scrollSections[Object.keys(this.scrollSections)[0]] : this.scrollSections[section];
+            toMove = (section === "top") ? this.scrollSections["navBar"] : this.scrollSections[section];
         $(box).animate({
             scrollTop: $(box).scrollTop() + ($(toMove).offset().top - $(box).offset().top )
         })
@@ -110,7 +110,7 @@ export default class App extends Component {
 
         //let cardSections = ["behave","core","enable"].map((e) => <div ref={con => this.scrollSections[e] = con} id={e}><CardSection clickScroll={this.clickScroll} mod={this.modFilter(e)}/></div>)
         return <div class={style.globalstrategyapp}>
-            <NavBar clickScroll={this.clickScroll} mods={this.state.mods} />
+            <div id={"navBar"} ref={con => this.scrollSections["navBar"] = con}><NavBar clickScroll={this.clickScroll} mods={this.state.mods} /></div>
             {cardSections}   
             <Footer clickScroll={this.clickScroll} />
         </div>

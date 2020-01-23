@@ -3,6 +3,9 @@
 
 .sectionHeader {
     padding: 48px 20px 48px 20px;
+    &.shortClass {
+        padding-bottom: 24px; 
+    }
     h2 {
    
         color: $slate-kicker;
@@ -21,8 +24,11 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    &.noTitle {
+        justify-content: flex-end;
+    }
 }
-.subTitle {
+.subTitleClass {
     width: $text-half-width;
-    margin-top: 12px; 
+    margin-top: 8px; 
 }

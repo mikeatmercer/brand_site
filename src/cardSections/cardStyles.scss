@@ -1,8 +1,9 @@
 @import "../styleVariables.scss";
 
 .cardSection {
-    &.greyBG {
-        background: #F6F7F9;
+    background: #F6F7F9;
+    &.whiteBG {
+        background:#fff;
     }    
 }
 

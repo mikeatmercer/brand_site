@@ -15,8 +15,7 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            sections : JSON.parse(localStorage.getItem("subNav")) || [],
-            lOffset: 0
+            sections : JSON.parse(localStorage.getItem("subNav")) || []
         }
        
         
