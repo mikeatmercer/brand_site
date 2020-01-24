@@ -107,9 +107,9 @@ function CardList({mod, attrClass}) {
         cards.push({
             kicker : $(e).find(".ms-rteStyle-Accent1:first").text() || null,
             imgURL : $(e).find("img:first").attr("src") || null,
-            title : $(e).find("h2:first").text() || null, 
-            content: $(text).text() || null,
-            linkText : $(e).find("a:first").text() || "Read More",
+            title : $(e).find("h2:first").text().trim() || null, 
+            content: $(text).text().trim() || null,
+            linkText : $(e).find("a:first").text().trim() || "Read More",
             linkURL : $(e).find("a:first").attr("href") || null,
             atts: mod.attributes,
         });

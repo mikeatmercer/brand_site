@@ -10,7 +10,7 @@ export default function({html}){
 
     let items = [];
     $(list).each(function(i,e){
-     items.push(<Profile email={$(e).text()} />);
+     items.push(<Profile email={$(e).text().trim()} />);
     });
 
     return <ul class={profileList}>

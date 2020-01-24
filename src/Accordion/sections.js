@@ -67,7 +67,7 @@ export default class Section extends Component {
                 <span href="#" class={`${headerLink} ${localHeader}`} >{(open) ? "Hide details" : "Show details"}</span>
             </div>
         </a>
-        <div ref={h => this.textBox = h} class={`${readingText} ${textContent} ${textFullWidth}`} dangerouslySetInnerHTML={{__html: $(bodyContent(mod.html)).html()}} />
+        <div ref={h => this.textBox = h} class={`${readingText} ${textContent} ${textFullWidth}`} dangerouslySetInnerHTML={{__html: $(bodyContent(mod.html)).html().trim()}} />
     </div>
     }
 } 

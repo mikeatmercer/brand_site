@@ -25,7 +25,7 @@ export default function({mod, clickScroll}) {
     let btns = [];
     $(body).find("a").each(function(i,e){
         btns.push(
-            <Btn style={"reverse"} text={$(e).text()} clickHandler={clickScroll} href={$(e).attr('href')} />
+            <Btn style={"reverse"} text={$(e).text().trim()} clickHandler={clickScroll} href={$(e).attr('href')} />
         );
     });
     
@@ -33,8 +33,8 @@ export default function({mod, clickScroll}) {
         {imgBg}
         <div class={contentBox}>
             <div class={kicker}>{mod.header}</div>
-            <h1 class={`${h1} ${grifoHeadline}`}>{$(body).find("h1").text()}</h1>
-            {($(text).text().trim().length)?  <div class={content}>{$(text).text()}</div> : null}
+            <h1 class={`${h1} ${grifoHeadline}`}>{$(body).find("h1").text().trim()}</h1>
+            {($(text).text().trim().length)?  <div class={content}>{$(text).text().trim()}</div> : null}
             {(btns.length)? <div class={btnHolder} >{btns}</div> : null}
         </div>
         

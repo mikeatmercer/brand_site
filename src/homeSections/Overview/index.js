@@ -24,14 +24,14 @@ export default function({mod,clickScroll}) {
     let posClasses = [style.topLeft,style.topCenter,style.topRight,style.bottomCenter]
     let digLink = [];
     $(body).find("a").each((i,e) =>{
-        digLink.push(<a onClick={clickScroll} href={$(e).attr("href")} class={`${posClasses[i]} ${grifoHeadline} ${headerSize}`}>{$(e).text()}</a>)
+        digLink.push(<a onClick={clickScroll} href={$(e).attr("href")} class={`${posClasses[i]} ${grifoHeadline} ${headerSize}`}>{$(e).text().trim()}</a>)
     } );
  
 
     return <div class={overviewContainer}>
         <div class={textContainer}>
             <h2 class={`${h2} ${grifoHeadline} ${makeNavy} ${headerSize}`}>{mod.header}</h2>
-            <div class={`${readingText}`} dangerouslySetInnerHTML={{__html: $(text).html()}} />
+            <div class={`${readingText}`} dangerouslySetInnerHTML={{__html: $(text).html().trim()}} />
         </div>
         <div class={diagram} style={{backgroundImage: `url(${$(body).find("img").attr("src")})`}}>
                 {digLink}

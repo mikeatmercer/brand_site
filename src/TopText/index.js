@@ -49,7 +49,7 @@ export default function({mod, allMods}) {
     return <div class={`${topText} ${(isRight) ? wRight : ""}`}>
         <div class={`${leftCol} ${textContainer} ${($(body).text().length < 500) ? shortText : ""}`}>
             {header}
-            <div class={`${readingText} `} dangerouslySetInnerHTML={{__html: $(body).html()}} />
+            <div class={`${readingText} `} dangerouslySetInnerHTML={{__html: $(body).html().trim()}} />
         </div>
         {rightComp}
     </div>
