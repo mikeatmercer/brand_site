@@ -5,41 +5,34 @@ import {accordion, noTitle} from "./styles.scss"
 import {Component} from "preact";
 
 export default class Accordion extends Component {
-    constructor() {
+    constructor(p) {
+        const sections = p.allMods.filter(e => varFind(e.attributes, "AccordionSection") && varFind(e.attributes, "section") == p.mod.type)
         super();
         this.state = {
-            btnText: "Expand all",
-            open: false
+            sections : sections,
+            openMods: sections.map(e => false)
         }
         this.btnClick = this.btnClick.bind(this);
     }
     btnClick(e) {
         e.preventDefault();
-        console.log(this.state.open);
-        $(global.accordionListener).trigger(`expand_${this.props.mod.type}`, [this.state.open]);
-            this.setState({
-                btnText: (this.state.open) ? "Expand all": "Hide all" ,
-                open: (!this.state.open)
-            })
-            
-        
+        let openUp = this.state.openMods.indexOf(false) > -1;  
+        $(global.accordionListener).trigger(`expand_${this.props.mod.type}`, [!openUp]);
     }
-
-    render({mod, allMods},{btnText}) {
+    componentDidMount() {
+        $(global.accordionListener).on("state_change_"+this.props.mod.type, (e,order,state) => {
+            let newArray = this.state.openMods.slice(0);
+            newArray[order] = state;
+            this.setState({openMods: newArray});
+        }) 
+    }
+    render({mod},{sections,openMods}) {
         let titleFalse = (attTrue(mod.attributes, "noTitle") === true);
-    
 
-    let sections = allMods.map(e => {
-        if(varFind(e.attributes, "type")!= "AccordionSection" || varFind(e.attributes, "section") != mod.type) {
-            return; 
-        }
- 
-        return <Section section={mod.type} mod={e} />
-    })
     return <div class={`${accordion} ${(titleFalse) ? noTitle : ""}`}>
-        <SectionHeader title={(titleFalse)? null : mod.header} short={titleFalse} link={<a onClick={this.btnClick}href="#">{btnText}</a>} />
+        <SectionHeader attributes={mod.attributes} title={mod.header} short={titleFalse} link={<a onClick={this.btnClick}href="#">{(openMods.indexOf(false) > -1) ? "Expand all" : "Hide all"}</a>} />
         
-        {sections}
+        {sections.map((e,i) => <Section order={i} section={mod.type} mod={e} />)}
      
     </div>
     }

@@ -25,7 +25,7 @@ h2.h2 {
     top: 0;
     height: 100%;
     width: calc(100% - 358px);
-    background: $bg-blue url("http://sites.mercer.com/sites/MercerStrategy/Style%20Library/site_assets/img/overview_bg.jpg") no-repeat center center;
+    background-position: center center;
     background-size: cover; 
     a {
         color: white;
@@ -33,21 +33,21 @@ h2.h2 {
         position: absolute;
         display:block;
         text-align:center;
-        &.core, &.executive {
+        &.topCenter, &.bottomCenter {
             top: 148px;
             left: 50%;
             transform: translateX(-50%);
         }
-        &.behave, &.enable {
+        &.topLeft, &.topRight {
             top: 130px;
             width: 153px;
             left: 0;
         }
-        &.enable {
+        &.topRight {
             left: auto;
             right: 0;
         }
-        &.executive {
+        &.bottomCenter {
             top: auto;
             bottom: 36px;
         }

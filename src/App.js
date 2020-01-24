@@ -10,7 +10,8 @@ import TopText from "./TopText";
 import Accordion from "./Accordion";
 import PageCopy from "./PageCopy";
 import Footer from "./Footer"; 
-import {varFind} from "./util/attFinders.js";
+import {varFind,attTrue} from "./util/attFinders.js";
+import {greyBG} from "./sharedStyles.scss";
 
 export default class App extends Component {
     constructor(props) {
@@ -104,7 +105,7 @@ export default class App extends Component {
                 return;
             }
 
-            return <div id={e.type} ref={con => this.scrollSections[e.type] = con}>{chi}</div>
+            return <div class={(attTrue(e.attributes, "greyBG") ? greyBG : null)} id={e.type} ref={con => this.scrollSections[e.type] = con}>{chi}</div>
 
         }.bind(this));
 

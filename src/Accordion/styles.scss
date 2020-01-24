@@ -18,7 +18,10 @@
 }
 .textContent {
     display:none; 
-
+    margin-bottom: 1em;
+    > *:last-child {
+        margin-bottom: 0;
+    }
 }
 .aHeader {
     position: relative;

@@ -21,7 +21,8 @@ const {
     wLink,
     linkOverlay,
     iconHolder, 
-    cardIcon
+    cardIcon,
+    dlLink,
 } = cardStyles
 const {
     muteImportant,
@@ -78,8 +79,9 @@ class CardRow extends Component {
                      {kicker}
                      {header}
                      <div class={readingText}>{e.content}</div>
-                     {link}
+                     
                  </div>
+                 {link}
                 {linkCover}
              </div>
          })
@@ -92,7 +94,7 @@ class CardRow extends Component {
 function CardLink({url, text}) {
     return <div class={cardLinkContainer}>
         <a href={url} class={cardLinka}><span class={cardLinkspan}>{text || "learn more"}</span>
-<svg class={cardLinksvg} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
+<svg class={`${cardLinksvg} ${(text.trim().toLowerCase() == "download") ? dlLink : ""}`} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
     </div>
 }
 
@@ -157,7 +159,7 @@ export default function({mod,clickScroll}) {
     let overviewBtn = (isHome())? <a href="#overview" onClick={clickScroll}>Back to overview</a> : null;
     let sub = $(bodyContent(mod.html)).find("h3:first");
     return <div class={`${cardSection} ${attrClass}`}>
-        <SectionHeader link={overviewBtn} title={mod.header} subTitle={(sub.length)? $(sub).text() : null}/>
+        <SectionHeader attributes={mod.attributes} link={overviewBtn} title={mod.header} subTitle={(sub.length)? $(sub).text() : null}/>
         
         <CardList mod={mod} attrClass={attrClass}/>
     </div>

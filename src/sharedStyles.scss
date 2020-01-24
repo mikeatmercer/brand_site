@@ -5,7 +5,9 @@
     background: linear-gradient(225deg, rgba(0,172,65,1) 0%, rgba(0,157,224,1) 100%);
   }
   
-
+.greyBG {
+    background: #F6F7F9;
+}
 .greenGradient {
     @include green-gradient();
 }

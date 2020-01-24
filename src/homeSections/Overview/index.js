@@ -13,24 +13,28 @@ const {
     h2,
     text,
     diagram,
-    headerSize
+    headerSize,
+    
 } = style
 
 export default function({mod,clickScroll}) {
-    let body = bodyContent(mod.html);
-    let diagramLinks = [
-        {hash:"enable", title : "How we enable"},
-        {hash:"core", title : "Our core"},
-        {hash:"behave", title : "How we behave"},
-        {hash:"executive", title: "Executive Actions"}
-    ].map(e => <a href={`#${e.hash}`} onClick={clickScroll} class={`${style[e.hash]} ${grifoHeadline} ${headerSize}`}>{e.title}</a>)
+    let body  = bodyContent(mod.html),
+        text = $(body).clone();
+    $(text).find("a ,img").remove();
+    let posClasses = [style.topLeft,style.topCenter,style.topRight,style.bottomCenter]
+    let digLink = [];
+    $(body).find("a").each((i,e) =>{
+        digLink.push(<a onClick={clickScroll} href={$(e).attr("href")} class={`${posClasses[i]} ${grifoHeadline} ${headerSize}`}>{$(e).text()}</a>)
+    } );
+ 
+
     return <div class={overviewContainer}>
         <div class={textContainer}>
             <h2 class={`${h2} ${grifoHeadline} ${makeNavy} ${headerSize}`}>{mod.header}</h2>
-            <div class={`${readingText}`} dangerouslySetInnerHTML={{__html: $(body).html()}} />
+            <div class={`${readingText}`} dangerouslySetInnerHTML={{__html: $(text).html()}} />
         </div>
-        <div class={diagram}>
-                {diagramLinks}
+        <div class={diagram} style={{backgroundImage: `url(${$(body).find("img").attr("src")})`}}>
+                {digLink}
                 
             
         </div>

@@ -46,6 +46,7 @@ export default class Section extends Component {
             $(this.textBox).slideUp();
             this.setState({open: false});
         }
+        $(global.accordionListener).trigger("state_change_"+this.props.section, [this.props.order, newState]);
         
     }
     componentDidMount() {
