@@ -19,7 +19,7 @@ export default function({alert}){
         localStorage.setItem("dismissed_alert_"+alert.ID, "yes"); 
         $(global.alertCloser).trigger("alert_closed");
     }
-    console.log(alert);
+   
     let iconURL = $(new DOMParser().parseFromString(alert.Icon, "text/html")).find("img").attr("src"),
         link = alert.Link,
         text = alert.Alert_x0020_Text

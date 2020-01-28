@@ -35,7 +35,7 @@ export default class Section extends Component {
             this.slideBox(true);
         }
     }
-    slideBox(newState) {
+    slideBox(newState,noTrigger) {
         if(this.state.open === newState) {
             return false; 
         }
@@ -46,13 +46,17 @@ export default class Section extends Component {
             $(this.textBox).slideUp();
             this.setState({open: false});
         }
-        $(global.accordionListener).trigger("state_change_"+this.props.section, [this.props.order, newState]);
+        if(!noTrigger) {
+         
+            $(global.accordionListener).trigger("state_change_"+this.props.section, [this.props.order, newState]);
+        }
+        
         
     }
     componentDidMount() {
-        $(global.accordionListener).on(`expand_${this.props.section}`, (e,state) => {
+        $(global.accordionListener).on(`expand_${this.props.section}`, (e,state,noTrigger) => {
             
-            this.slideBox(!state);
+            this.slideBox(!state,noTrigger);
         } )
     }
 

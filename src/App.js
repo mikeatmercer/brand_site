@@ -73,29 +73,31 @@ export default class App extends Component {
         if(Object.keys(this.scrollSections).indexOf(l) > -1) {
             this.scroller(l)
         }    
-        $.ajax({
-            type: 'GET',
-            url: `${SITE_DOMAIN}/_api/web/lists/GetByTitle('${ALERT_LIST}')/items?$orderby=Modified desc&$filter=((Expiration_x0020_Date ge datetime'${new Date().toISOString()}') and (Hidden ne 1))`,
-            headers: {
-              "accept": "application/json;odata=verbose",
-            },
-            success: (data) => {
-               if(!data.d.results.length) {
-                   return ; 
-               }
-               let item = data.d.results[0];
-               if(localStorage.getItem("dismissed_alert_"+item.ID) === "yes") {
-                   return ; 
-               }
-          
-               this.setState({
-                   alert: item
-               })
-               $(global.alertCloser).on("alert_closed",() => {
-                   this.setState({alert: null});
-               })
-            }
-        });
+        if(ALERT_LIST) {
+            $.ajax({
+                type: 'GET',
+                url: `${SITE_DOMAIN}/_api/web/lists/GetByTitle('${ALERT_LIST}')/items?$orderby=Modified desc&$filter=((Expiration_x0020_Date ge datetime'${new Date().toISOString()}') and (Hidden ne 1))`,
+                headers: {
+                  "accept": "application/json;odata=verbose",
+                },
+                success: (data) => {
+                   if(!data.d.results.length) {
+                       return ; 
+                   }
+                   let item = data.d.results[0];
+                   if(localStorage.getItem("dismissed_alert_"+item.ID) === "yes") {
+                       return ; 
+                   }
+              
+                   this.setState({
+                       alert: item
+                   })
+                   $(global.alertCloser).on("alert_closed",() => {
+                       this.setState({alert: null});
+                   })
+                }
+            });
+        }
   
     }
     render(p,{mods, alert}) {
