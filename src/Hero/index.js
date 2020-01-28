@@ -1,7 +1,9 @@
 import styles from "./styles.scss";
 import sharedStyles from "../sharedStyles.scss";
 import Btn from "../Btn";
-import bodyContent from "../util/bodyContent.js"
+import bodyContent from "../util/bodyContent.js";
+
+
 const {
     tSec,
     h1,
@@ -9,13 +11,14 @@ const {
     kicker,
     bgImg,
     content,
-    btnHolder
+    btnHolder,
+    wAlert
 } = styles
 
 const {grifoHeadline} = sharedStyles
 
-export default function({mod, clickScroll}) {
-    
+export default function({mod, clickScroll, alert}) {
+
     let body  = bodyContent(mod.html),
         text = $(body).clone();
     $(text).find("h1, a, img").remove();
@@ -29,7 +32,7 @@ export default function({mod, clickScroll}) {
         );
     });
     
-    return <div class={`${tSec} ${attClasses}`}>
+    return <div class={`${tSec} ${attClasses} ${(alert)? wAlert : ""}`}>
         {imgBg}
         <div class={contentBox}>
             <div class={kicker}>{mod.header}</div>

@@ -56,7 +56,8 @@ module.exports = {
     new webpack.DefinePlugin({
       "HOME_URL": JSON.stringify(HOME_URL),
       "SITE_DOMAIN": JSON.stringify("http://sites.mercer.com/sites/MercerStrategy"),
-      "PRODUCTION_BUILD": (ENV == "production") ? JSON.stringify(true) : JSON.stringify(false)
+      "PRODUCTION_BUILD": (ENV == "production") ? JSON.stringify(true) : JSON.stringify(false),
+      "ALERT_LIST": (ENV == "production") ? JSON.stringify("") : JSON.stringify("Alert_Test")
     }),
     new MiniCssExtractPlugin({
       filename: "style.css"

@@ -19,6 +19,7 @@ let _habitat = habitat(App);
     return false; 
   }
   global.accordionListener = {};
+  global.alertCloser = {};
   if(PRODUCTION_BUILD) {
     $("#contentRow").attr("style", "visibility: hidden !important"); 
   }

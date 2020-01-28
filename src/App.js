@@ -12,28 +12,32 @@ import PageCopy from "./PageCopy";
 import Footer from "./Footer"; 
 import {varFind,attTrue} from "./util/attFinders.js";
 import {greyBG} from "./sharedStyles.scss";
+import Alert from "./Alert";
 
 export default class App extends Component {
     constructor(props) {
         super();
-
+        
         let c = HTMLclean($("#contentBox").html())
         let mods = [];
         $("#contentBox #DeltaPlaceHolderMain table .s4-wpcell-plain").each(function(i,e){
+            
             let title = $(e).find(".js-webpart-titleCell"),
                 data = $(title).attr("title").split("-")[1].split("_");
-            mods.push({
+            let item = {
                 header: $(title).text(),
                 type: (data[0])? data[0].trim() : null,
                 html: HTMLclean($(e).html()),
                 attributes: (data[1]) ? data[1].split("|").map(e => e.trim()) : [] 
-            })
+            }
+          
+            mods.push(item);
         });
       
 
         this.state = {
             mods: mods,
-          
+            alert: null
             
         }
         this.scrollSections = [];
@@ -69,13 +73,37 @@ export default class App extends Component {
         if(Object.keys(this.scrollSections).indexOf(l) > -1) {
             this.scroller(l)
         }    
-   
+        $.ajax({
+            type: 'GET',
+            url: `${SITE_DOMAIN}/_api/web/lists/GetByTitle('${ALERT_LIST}')/items?$orderby=Modified desc&$filter=((Expiration_x0020_Date ge datetime'${new Date().toISOString()}') and (Hidden ne 1))`,
+            headers: {
+              "accept": "application/json;odata=verbose",
+            },
+            success: (data) => {
+               if(!data.d.results.length) {
+                   return ; 
+               }
+               let item = data.d.results[0];
+               if(localStorage.getItem("dismissed_alert_"+item.ID) === "yes") {
+                   return ; 
+               }
+          
+               this.setState({
+                   alert: item
+               })
+               $(global.alertCloser).on("alert_closed",() => {
+                   this.setState({alert: null});
+               })
+            }
+        });
   
     }
-    render(p,{mods}) {
-        let realSections = ["Hero", "Overview", "Cards" , "SummaryText", "AccordionHeader", "PageCopy"];
+    render(p,{mods, alert}) {
+        const realSections = ["Hero", "Overview", "Cards" , "SummaryText", "AccordionHeader", "PageCopy"];
+      
+        let liveSections = mods.filter(e => realSections.indexOf(varFind(e.attributes, "type")) > -1 );
     
-        let cardSections = mods.map(function(e){
+        let cardSections = liveSections.map(function(e,i){
             let type = varFind(e.attributes, "type");
             if(realSections.indexOf(type) < 0) {
                 return; 
@@ -84,19 +112,19 @@ export default class App extends Component {
          
             switch(type) {
                 case "Hero":
-                    chi =  <Hero mod={e} clickScroll={this.clickScroll} />
+                    chi =  <Hero mod={e}  alert={alert} clickScroll={this.clickScroll} />
                     break;
                 case "Overview":
-                    chi = <Overview mod={e} clickScroll={this.clickScroll} />
+                    chi = <Overview mod={e} order={i} clickScroll={this.clickScroll} />
                     break; 
                 case "Cards":
-                    chi = <CardSection mod={e} clickScroll={this.clickScroll} />
+                    chi = <CardSection mod={e} order={i} clickScroll={this.clickScroll} />
                     break;
                 case "SummaryText":
-                    chi = <TopText mod={e} allMods={mods} clickScroll={this.clickScroll} />
+                    chi = <TopText mod={e} allMods={mods} order={i} clickScroll={this.clickScroll} />
                     break;
                 case "AccordionHeader":
-                    chi = <Accordion mod={e} allMods={mods} clickScroll={this.clickScroll} /> 
+                    chi = <Accordion mod={e} order={i} allMods={mods} clickScroll={this.clickScroll} /> 
                     break;
                 case "PageCopy" : 
                     chi = <PageCopy mod={e} />
@@ -111,6 +139,7 @@ export default class App extends Component {
 
         //let cardSections = ["behave","core","enable"].map((e) => <div ref={con => this.scrollSections[e] = con} id={e}><CardSection clickScroll={this.clickScroll} mod={this.modFilter(e)}/></div>)
         return <div class={style.globalstrategyapp}>
+            {(alert)? <Alert alert={alert} />: null}
             <div id={"navBar"} ref={con => this.scrollSections["navBar"] = con}><NavBar clickScroll={this.clickScroll} mods={this.state.mods} /></div>
             {cardSections}   
             <Footer clickScroll={this.clickScroll} />
