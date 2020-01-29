@@ -55,6 +55,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "HOME_URL": JSON.stringify(HOME_URL),
+      "SITE_HOST": JSON.stringify("http://sites.mercer.com"),
       "SITE_DOMAIN": JSON.stringify("http://sites.mercer.com/sites/MercerStrategy"),
       "PRODUCTION_BUILD": (ENV == "production") ? JSON.stringify(true) : JSON.stringify(false),
       "ALERT_LIST": (ENV == "production") ? JSON.stringify(false) : JSON.stringify("Alert_Test")

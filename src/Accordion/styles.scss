@@ -12,7 +12,7 @@
     &:last-child {
         border-bottom: 1px solid #D5D9E0;
     }
-    &.isOpen {
+    &.isOpenClass {
         border-top-color: #003865;
     }
 }
@@ -52,7 +52,7 @@
         left: 6px;
         top: calc(50% - 7px);
     }
-    &.isOpen {
+    &.isOpenClass {
         &:after {
             display:none; 
             

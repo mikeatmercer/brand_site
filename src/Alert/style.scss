@@ -5,6 +5,11 @@
     z-index: 5;
     width: 100%;
     padding: 16px 20px 0;
+    &.relative {
+        position:relative;
+        left: auto;
+        top: auto; 
+    }
 }
 .alertBar {
     position: relative;

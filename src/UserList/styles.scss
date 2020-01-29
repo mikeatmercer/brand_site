@@ -6,9 +6,9 @@
     }
     &Item {
         padding: 0;
-        margin: 0 0 12px 0; 
+        margin: 0 0 16px 0; 
         display: flex; 
-        align-items: flex-start;
+        align-items: center;
     }
     &Image {
         width: 62px;
@@ -19,6 +19,7 @@
         position:relative;
         background-size: cover;
         background-position: center center;
+        display:block;
 
         &:after {
             content: attr(data-init);
@@ -37,6 +38,9 @@
             width: 100%;
             height: 100%;
             opacity: 0;
+            position:absolute;
+            left: 0;
+            top: 0;
         }
         &.wImg {
             &:after {

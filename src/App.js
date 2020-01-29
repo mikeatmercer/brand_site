@@ -13,6 +13,7 @@ import Footer from "./Footer";
 import {varFind,attTrue} from "./util/attFinders.js";
 import {greyBG} from "./sharedStyles.scss";
 import Alert from "./Alert";
+import ajaxCall from "./util/ajaxCall.js";
 
 export default class App extends Component {
     constructor(props) {
@@ -73,30 +74,25 @@ export default class App extends Component {
         if(Object.keys(this.scrollSections).indexOf(l) > -1) {
             this.scroller(l)
         }    
+        const alertData = (d) => {
+            if(!d.results.length) {
+                return ; 
+            }
+            let item = d.results[0];
+            if(localStorage.getItem("dismissed_alert_"+item.ID) === "yes") {
+                return ; 
+            }
+       
+            this.setState({
+                alert: item
+            })
+            $(global.alertCloser).on("alert_closed",() => {
+                this.setState({alert: null});
+            })
+        }
         if(ALERT_LIST) {
-            $.ajax({
-                type: 'GET',
-                url: `${SITE_DOMAIN}/_api/web/lists/GetByTitle('${ALERT_LIST}')/items?$orderby=Modified desc&$filter=((Expiration_x0020_Date ge datetime'${new Date().toISOString()}') and (Hidden ne 1))`,
-                headers: {
-                  "accept": "application/json;odata=verbose",
-                },
-                success: (data) => {
-                   if(!data.d.results.length) {
-                       return ; 
-                   }
-                   let item = data.d.results[0];
-                   if(localStorage.getItem("dismissed_alert_"+item.ID) === "yes") {
-                       return ; 
-                   }
-              
-                   this.setState({
-                       alert: item
-                   })
-                   $(global.alertCloser).on("alert_closed",() => {
-                       this.setState({alert: null});
-                   })
-                }
-            });
+            ajaxCall(`${SITE_DOMAIN}/_api/web/lists/GetByTitle('${ALERT_LIST}')/items?$orderby=Modified desc&$filter=((Expiration_x0020_Date ge datetime'${new Date().toISOString()}') and (Hidden ne 1))`, alertData);
+            
         }
   
     }
@@ -114,7 +110,7 @@ export default class App extends Component {
          
             switch(type) {
                 case "Hero":
-                    chi =  <Hero mod={e}  alert={alert} clickScroll={this.clickScroll} />
+                    chi =  <Hero mod={e}  alert={(alert && i === 0)? alert : null} clickScroll={this.clickScroll} />
                     break;
                 case "Overview":
                     chi = <Overview mod={e} order={i} clickScroll={this.clickScroll} />
@@ -139,24 +135,14 @@ export default class App extends Component {
 
         }.bind(this));
 
-        //let cardSections = ["behave","core","enable"].map((e) => <div ref={con => this.scrollSections[e] = con} id={e}><CardSection clickScroll={this.clickScroll} mod={this.modFilter(e)}/></div>)
+        
+        
         return <div class={style.globalstrategyapp}>
-            {(alert)? <Alert alert={alert} />: null}
+            
             <div id={"navBar"} ref={con => this.scrollSections["navBar"] = con}><NavBar clickScroll={this.clickScroll} mods={this.state.mods} /></div>
+            {(alert)? <Alert alert={alert} onHero={(varFind(liveSections[0].attributes, "type") == "Hero")}/>: null}
             {cardSections}   
             <Footer clickScroll={this.clickScroll} />
         </div>
     }
 } 
-
-
-/*
-<div id="topsection" ref={con => this.scrollSections["topsection"] = con}>
-                <Hero clickScroll={this.clickScroll} mod={this.modFilter("topsection")} />
-            </div>
-            <div id="overview" ref={con => this.scrollSections["overview"] = con}>
-                <Overview clickScroll={this.clickScroll} mod={this.modFilter("overview")} />
-            </div>
-            {cardSections}
-
-*/

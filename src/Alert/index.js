@@ -8,10 +8,11 @@ const {
     noIcon,
     alertText,
     alertMask,
-    closeButton
+    closeButton,
+    relative
 } = style;
 
-export default function({alert}){
+export default function({alert, onHero}){
    
 
     function closeClick(e) {
@@ -25,7 +26,7 @@ export default function({alert}){
         text = alert.Alert_x0020_Text
 
     
-    return <div class={alertContainer}>
+    return <div class={`${alertContainer} ${(!onHero)?relative:""}`}>
         <div class={`${alertBar} ${noIcon}`}>
                 <div class={imageIcon} style={{backgroundImage: (iconURL) ? `url(${iconURL})` : ""}}>
                     {(!iconURL)? SVG("info") : ""}

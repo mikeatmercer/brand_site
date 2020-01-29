@@ -1,79 +1,41 @@
-import {Component} from "preact"
 import bodyContent from "../util/bodyContent.js"
 import {readingText, headerLink,textFullWidth} from "../sharedStyles.scss";
 import styles from "./styles.scss";
+import {useEffect,useRef} from "preact/hooks";
+import $ from "jquery";
 
 const {
     aItem,
     textContent,
     aHeader,
     aHeaderText,
-    isOpen,
+    isOpenClass,
     aHeaderContainer,
     localHeader
 } = styles
 
-
-
-
-export default class Section extends Component {
-    constructor() {
-        super();
-        this.state = {
-            open: false
-        }
-
-        this.textBox;
-        this.slideBox = this.slideBox.bind(this)
-        this.clickSlider = this.clickSlider.bind(this);
-    }
-    clickSlider(e) {
-        e.preventDefault();
-        if(this.state.open) {
-            this.slideBox(false) 
+export default function({mod,isOpen,updater,order}) {
+    const textBox = useRef(null);
+    useEffect(()=>{
+        if(!isOpen) {
+            $(textBox.current).slideUp();
         } else {
-            this.slideBox(true);
+            $(textBox.current).slideDown(); 
         }
-    }
-    slideBox(newState,noTrigger) {
-        if(this.state.open === newState) {
-            return false; 
-        }
-        if(newState) {
-            $(this.textBox).slideDown();
-            this.setState({open: true})
-        } else {
-            $(this.textBox).slideUp();
-            this.setState({open: false});
-        }
-        if(!noTrigger) {
-         
-            $(global.accordionListener).trigger("state_change_"+this.props.section, [this.props.order, newState]);
-        }
-        
-        
-    }
-    componentDidMount() {
-        $(global.accordionListener).on(`expand_${this.props.section}`, (e,state,noTrigger) => {
-            
-            this.slideBox(!state,noTrigger);
-        } )
-    }
+    
+    },[isOpen])
 
-    render({mod},{open}) {
-        let openClass = (open)? isOpen : ""
-
-        return <div class={`${aItem} ${openClass}`}>
-        <a href="#" class={`${aHeader} ${openClass}`} onClick={this.clickSlider}>
-          
+    let openClass = (isOpen)? isOpenClass : ""
+    return <div class={`${aItem} ${openClass}`}>
+        <a href="#" class={`${aHeader} ${openClass}`} onClick={(e)=>{e.preventDefault(); updater(order, !isOpen)}}>
             <div class={aHeaderContainer}>
                 <div class={aHeaderText}>{mod.header}</div>
-                <span href="#" class={`${headerLink} ${localHeader}`} >{(open) ? "Hide details" : "Show details"}</span>
+                <span href="#" class={`${headerLink} ${localHeader}`} >{(isOpen) ? "Hide details" : "Show details"}</span>
             </div>
         </a>
-        <div ref={h => this.textBox = h} class={`${readingText} ${textContent} ${textFullWidth}`} dangerouslySetInnerHTML={{__html: $(bodyContent(mod.html)).html().trim()}} />
+        <div ref={textBox} class={`${readingText} ${textContent} ${textFullWidth}`} dangerouslySetInnerHTML={{__html: $(bodyContent(mod.html)).html().trim()}} />
+
     </div>
-    }
-} 
+}
 
 
