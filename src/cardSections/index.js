@@ -2,7 +2,7 @@ import $ from "jquery";
 import cardStyles from "./cardStyles.scss";
 import shareStyles from "../sharedStyles.scss";
 import bodyContent from "../util/bodyContent.js";
-import {Component} from "preact";
+import {Component, Fragment} from "preact";
 import {attTrue} from "../util/attFinders.js"
 import isHome from "../util/isHome.js";
 import SectionHeader from "../SectionHeader";
@@ -20,17 +20,14 @@ const {
     cardLinksvg,
     cardLinkspan,
     wLink,
-    linkOverlay,
     iconHolder, 
     cardIcon,
     dlLink,
 } = cardStyles
 const {
-    muteImportant,
     grifoHeadline,
     makeNavy,
     readingText,
-    headerLink
 } = shareStyles
 
 class CardRow extends Component {
@@ -56,35 +53,35 @@ class CardRow extends Component {
         }
     }
     componentDidMount() {
-       // this.checkHeight(); 
+    
         $(window).load(function(){
             this.checkHeight();
         }.bind(this))
     }
 
     render(p,{hHeight}) {
-        let headerH = hHeight || "auto";
-        let CList = p.items.map((e,i) => {
-        
-            let header  = (e.title) ? <h2 style={{height: headerH}} ref={h => this.headers[i] = h} class={`${grifoHeadline} ${makeNavy}`}>{e.title}</h2> : null;
-            let img = (e.imgURL && !attTrue(e.atts, "icons") ) ? <div class={cardImg} style={{backgroundImage: `url(${e.imgURL})`}}></div> : null;
-            let link = (e.linkURL) ? <CardLink text={e.linkText} url={e.linkURL} /> : null
-            let wLinkClass = (e.linkURL) ? wLink : null
-            let linkCover = (e.linkURL) ? <a  href={e.linkURL} class={linkOverlay} /> : null;
-            let icon = (e.imgURL && attTrue(e.atts, "icons") ) ? <div class={iconHolder}><img src={e.imgURL} class={cardIcon}/></div> : null; 
-            let kicker = (e.kicker) ? <div class={cardKicker}>{e.kicker}</div> : null;
-             return <div class={`${cardItem} ${p.attrClass} ${wLinkClass}`}>
-                 {img}
-                 {icon}
+        let headerH = hHeight || "auto",
+            CList = p.items.map((e,i) => {
+            let hasLink = (e.linkURL),
+                isIcon = attTrue(e.atts, "icons"),
+                interior = <Fragment>
+                {(e.imgURL && !isIcon ) ? <div class={cardImg} style={{backgroundImage: `url(${e.imgURL})`}}></div> : null}
+                 {(e.imgURL && isIcon ) ? <div class={iconHolder}><img src={e.imgURL} class={cardIcon}/></div> : null}
                  <div class={cardText}>
-                     {kicker}
-                     {header}
-                     <div class={readingText}>{e.content}</div>
+                     {(e.kicker) ? <div class={cardKicker}>{e.kicker}</div> : null}
+                     {(e.title) ? <h2 style={{height: headerH}} ref={h => this.headers[i] = h} class={`${grifoHeadline} ${makeNavy}`}>{e.title}</h2> : null}
+                     <div class={`${readingText} ${makeNavy}`}>{e.content.trim()}</div>
                      
                  </div>
-                 {link}
-                {linkCover}
-             </div>
+                 {(hasLink)? <CardLink text={e.linkText} /> : null}   
+            </Fragment>
+
+             return h((hasLink)? "a": "div", 
+                        {
+                            class: `${cardItem} ${p.attrClass} ${(hasLink)?wLink:null}`, 
+                            href:hasLink|| null
+                        }, 
+                        interior);
          })
 
         return <div class={cardRow}>{CList}</div>
@@ -92,10 +89,11 @@ class CardRow extends Component {
 }
 
 
-function CardLink({url, text}) {
+
+function CardLink({ text}) {
     return <div class={cardLinkContainer}>
-        <a href={url} class={cardLinka}><span class={cardLinkspan}>{text || "learn more"}</span>
-        {SVG("arrow",`${cardLinksvg} ${(text.trim().toLowerCase() == "download") ? dlLink : ""}`)}</a>
+        <span  class={cardLinka}><span class={cardLinkspan}>{text || "learn more"}</span>
+        {SVG("arrow",`${cardLinksvg} ${(text.trim().toLowerCase() == "download") ? dlLink : ""}`)}</span>
     </div>
 }
 
@@ -109,7 +107,7 @@ function CardList({mod, attrClass}) {
             kicker : $(e).find(".ms-rteStyle-Accent1:first").text() || null,
             imgURL : $(e).find("img:first").attr("src") || null,
             title : $(e).find("h2:first").text().trim() || null, 
-            content: $(text).text().trim() || null,
+            content: $(text).text().replace(/\u200B/g,'').trim() || null,
             linkText : $(e).find("a:first").text().trim() || "Read More",
             linkURL : $(e).find("a:first").attr("href") || null,
             atts: mod.attributes,
