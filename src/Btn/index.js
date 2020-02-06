@@ -1,8 +1,7 @@
 import styles from "./styles.scss";
 
 const{
-    btn,
-    reverse
+    btn
 } = styles
 
 export default function(p) {

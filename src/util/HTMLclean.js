@@ -16,6 +16,9 @@ export default function(s) {
         if(e.tagName.toLowerCase() !== "img") {
             e.removeAttribute("src");
         }
+        if(["tr","td","tbody","th","table"].indexOf(e.tagName.toLowerCase()) > -1) {
+            e.removeAttribute("class");
+        }
         if(allowed_tags.indexOf(e.tagName.toLowerCase()) === "script") {
             e.innerHTML = "";
         }

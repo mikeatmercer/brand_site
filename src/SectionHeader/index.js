@@ -6,6 +6,10 @@ export default function({title, subTitle, link, short, attributes}) {
 
     let withoutTitle = (attTrue(attributes,"noTitle"));
 
+    if(withoutTitle && !link) {
+        return false; 
+    }
+
     return <div class={`${sectionHeader} ${(short) ? shortClass : ""} `}>
             <div class={`${top} ${(withoutTitle || !title)? noTitle : ""}`}>
             {(withoutTitle|| !title) ? null : <h2 class={`${muteImportant}`}>{title}</h2> }

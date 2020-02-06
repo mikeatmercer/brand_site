@@ -12,7 +12,8 @@ const {
     bgImg,
     content,
     btnHolder,
-    wAlert
+    wAlert,
+    hasBgImg
 } = styles
 
 const {grifoHeadline} = sharedStyles
@@ -34,7 +35,7 @@ export default function({mod, clickScroll, alert}) {
     
     return <div class={`${tSec} ${attClasses} ${(alert)? wAlert : ""}`}>
         {imgBg}
-        <div class={contentBox}>
+        <div class={`${contentBox} ${(img.length)?hasBgImg: ""}`}>
             <div class={kicker}>{mod.header}</div>
             <h1 class={`${h1} ${grifoHeadline}`}>{$(body).find("h1").text().trim()}</h1>
             {($(text).text().trim().length)?  <div class={content}>{$(text).text().trim()}</div> : null}

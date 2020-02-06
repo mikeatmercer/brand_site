@@ -69,6 +69,7 @@ export default class App extends Component {
         if(PRODUCTION_BUILD) {
             $("#contentRow").remove();
         }
+        $("#contentRow").remove();
         
         var l = location.hash.replace("#","");
         if(Object.keys(this.scrollSections).indexOf(l) > -1) {

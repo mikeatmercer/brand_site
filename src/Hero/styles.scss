@@ -33,7 +33,7 @@ h1.h1 {
     }
 }
 .contentBox {
-    width: 652px;
+    
     margin-left: 20px;
     padding-top: 36px;
     padding-bottom: 72px;
@@ -51,6 +51,9 @@ h1.h1 {
     }
     .wAlert.tall & {
         padding-top: (72px + 16px + 56px);
+    }
+    &.hasBgImg {
+        width: 652px;
     }
 }
 .kicker {

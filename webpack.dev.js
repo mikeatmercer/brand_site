@@ -8,7 +8,7 @@ module.exports = merge(common, {
         contentBase: "./src",
         watchContentBase: true,
         host: "0.0.0.0",
-        publicPath: `http://${HOMEIP}:8080/`,
+        publicPath: `http://${WORKIP}:8080/`,
         sockHost: WORKIP,
         sockPort: "8080",
         disableHostCheck: true
