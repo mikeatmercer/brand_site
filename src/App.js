@@ -92,7 +92,7 @@ export default class App extends Component {
             })
         }
         if(ALERT_LIST) {
-            ajaxCall(`${SITE_DOMAIN}/_api/web/lists/GetByTitle('${ALERT_LIST}')/items?$orderby=Modified desc&$filter=((Expiration_x0020_Date ge datetime'${new Date().toISOString()}') and (Hidden ne 1))`, alertData);
+            ajaxCall(`${SITE_DOMAIN}/_api/web/lists/GetByTitle('${ALERT_LIST}')/items?$orderby=Created desc&$filter=((Expiration_x0020_Date ge datetime'${new Date().toISOString()}') and (Hidden ne 1))`, alertData);
             
         }
   

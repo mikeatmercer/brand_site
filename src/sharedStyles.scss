@@ -49,16 +49,23 @@
     }
     ul, ol {
         margin: 0 0 1em 0; 
+        padding: 0 0 0 1em;
     }
+    $full-width: 990px;
     img {
         display:block;
-        max-width: calc(100% + 240px);
+        max-width: $full-width;
         margin-bottom: 1em;
+    }
+    p {
+        > img {
+            margin-bottom: 0;
+        }
     }
     table {
         display:table;
         text-align:left;
-        width: calc(100% + 240px);
+        width: $full-width;
         margin: 2em 0;
         tbody, tr {
             width: 100%;
@@ -104,4 +111,7 @@ a.headerLink, .headerLink {
     &:hover {
         color: #007bb7;
     }
+}
+.headerPad {
+    padding-top: 48px;
 }

@@ -2,6 +2,7 @@ import styles from "./styles.scss";
 import sharedStyles from "../sharedStyles.scss";
 import Btn from "../Btn";
 import bodyContent from "../util/bodyContent.js";
+import {attTrue} from "../util/attFinders.js"
 
 
 const {
@@ -36,7 +37,7 @@ export default function({mod, clickScroll, alert}) {
     return <div class={`${tSec} ${attClasses} ${(alert)? wAlert : ""}`}>
         {imgBg}
         <div class={`${contentBox} ${(img.length)?hasBgImg: ""}`}>
-            <div class={kicker}>{mod.header}</div>
+            {(attTrue(mod.attributes,"noTitle"))? null:<div class={kicker}>{mod.header}</div>}
             <h1 class={`${h1} ${grifoHeadline}`}>{$(body).find("h1").text().trim()}</h1>
             {($(text).text().trim().length)?  <div class={content}>{$(text).text().trim()}</div> : null}
             {(btns.length)? <div class={btnHolder} >{btns}</div> : null}

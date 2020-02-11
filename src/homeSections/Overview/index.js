@@ -11,7 +11,6 @@ const {
     overviewContainer, 
     textContainer,
     h2,
-    text,
     diagram,
     headerSize,
     

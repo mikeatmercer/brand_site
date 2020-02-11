@@ -62,7 +62,7 @@ module.exports = {
           "SITE_HOST": JSON.stringify("http://sites.mercer.com"),
           "SITE_DOMAIN": JSON.stringify("http://sites.mercer.com/sites/MercerStrategy"),
           "PRODUCTION_BUILD": (ENV == "production") ? JSON.stringify(true) : JSON.stringify(false),
-          "ALERT_LIST": (ENV == "production") ? JSON.stringify(false) : JSON.stringify("Alert_Test")
+          "ALERT_LIST": (ENV == "production") ? JSON.stringify("Alerts") : JSON.stringify("Alert_Test")
         }),
         
     ],
