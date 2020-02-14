@@ -13,17 +13,33 @@ const {
     h2,
     diagram,
     headerSize,
-    
+    infoList
 } = style
 
 export default function({mod,clickScroll}) {
     let body  = bodyContent(mod.html),
         text = $(body).clone();
-    $(text).find("a ,img").remove();
-    let posClasses = [style.topLeft,style.topCenter,style.topRight,style.bottomCenter]
+    $(text).find("a ,img,.sections").remove();
+
+    let infoBlocks = []
+
+    $(body).find(".sections li").each(function(i,e){
+        let ds = $(e).clone();
+        $(ds).find("b").remove();
+        
+        infoBlocks.push(
+            <div>
+                <div >{$(ds).text()}</div>
+                <div class={grifoHeadline}>{$(e).find("b").text()}</div>
+            </div>
+        )
+        
+    })
+    
     let digLink = [];
     $(body).find("a").each((i,e) =>{
-        digLink.push(<a onClick={clickScroll} href={$(e).attr("href")} class={`${posClasses[i]} ${grifoHeadline} ${headerSize}`}>{$(e).text().trim()}</a>)
+        let text = $(e).text().trim()
+    digLink.push(<a data-text={text} onClick={clickScroll} href={$(e).attr("href")} class><span class={grifoHeadline}>{text}</span>{(i === 0)? <div class={infoList}>{infoBlocks}</div>: null}</a>)
     } );
  
 
@@ -34,6 +50,8 @@ export default function({mod,clickScroll}) {
         </div>
         <div class={diagram} style={{backgroundImage: `url(${$(body).find("img").attr("src")})`}}>
                 {digLink}
+                
+                    
                 
             
         </div>

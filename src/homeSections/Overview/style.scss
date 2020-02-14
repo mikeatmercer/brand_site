@@ -33,23 +33,77 @@ h2.h2 {
         position: absolute;
         display:block;
         text-align:center;
-        &.topCenter, &.bottomCenter {
-            top: 148px;
-            left: 50%;
-            transform: translateX(-50%);
+        font-size: 26px;
+        text-align: center;
+        z-index:1;
+        span {
+   
         }
-        &.topLeft, &.topRight {
-            top: 130px;
-            width: 153px;
+        &:nth-child(1) {
+            position:absolute;
             left: 0;
+            top: 0;
+            width: 294px;
+            height: 294px;
+            span {
+                display:block; 
+                top: 50%;
+                left: 0px;
+               text-align: center;
+                color: #868D95;
+                font-size: 22px;
+                line-height: 1;
+                position: absolute;
+                margin-left: 26px; 
+                transform: translate(-50%, -50%) rotate(-90deg)
+            }
         }
-        &.topRight {
-            left: auto;
+        &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+            height: 146px;
+            line-height: 146px;
+        }
+        &:nth-child(2), &:nth-child(3) {
+            width: 378px;
             right: 0;
+            top: 0;
         }
-        &.bottomCenter {
-            top: auto;
-            bottom: 36px;
+        &:nth-child(3) {
+            top: 147px;
         }
+        &:nth-child(4) {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    }
+}
+.infoList {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+    width: 200px;
+    text-align: left;
+}
+.infoList > div {
+    position:absolute;
+    left: 72px;
+    top: 12px;
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 300;
+    color:white; 
+    width: 200px;
+    &:nth-child(2) {
+        top: 68px;
+    }
+    &:nth-child(3) {
+        top: 132px;
+        color: #003865;
+    }
+    > div:last-child {
+        font-size: 20px;
+        line-height: 22px;
     }
 }

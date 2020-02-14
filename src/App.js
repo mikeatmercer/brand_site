@@ -63,7 +63,8 @@ export default class App extends Component {
     }
     clickScroll(e) {
         e.preventDefault();
-        this.scroller(e.target.getAttribute("href").replace("#",""))
+
+        this.scroller(e.currentTarget.getAttribute("href").replace("#",""))
     }
     componentDidMount() {
         if(PRODUCTION_BUILD) {
@@ -114,7 +115,7 @@ export default class App extends Component {
                     chi =  <Hero mod={e}  alert={(alert && i === 0)? alert : null} clickScroll={this.clickScroll} />
                     break;
                 case "Overview":
-                    chi = <Overview mod={e} order={i} clickScroll={this.clickScroll} />
+                    chi = <Overview mod={e} order={i} scroller={this.scroller} clickScroll={this.clickScroll} />
                     break; 
                 case "Cards":
                     chi = <CardSection mod={e} order={i} clickScroll={this.clickScroll} />
