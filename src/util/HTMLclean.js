@@ -4,23 +4,24 @@ export default function(s) {
     if(!s) {
         return s; 
     }
-    var allowed_tags = [ 'h3', 'h4', 'h5', 'h6', 'blockquote', 'p', 'a', 'ul','ol','nl', 'li', 'b', 'i', 'strong', 'em', 'strike', 'code', 'hr', 'div','table', 'thead', "nobr", 'caption', "span", 'tbody', 'tr', 'th', 'td', 'pre', 'iframe','img' ];
+ 
 
     const dom = new DOMParser().parseFromString(s, 'text/html');
+    
     let domBody = dom.querySelector("body");
+    $(domBody).find("script").remove();
    
-   
-    domBody.querySelectorAll("*").forEach(function(e,i){
-       
+    domBody.querySelectorAll("*").forEach((e) => {
+       let tag = e.tagName.toLowerCase(0);
         e.removeAttribute("style");
-        if(e.tagName.toLowerCase() !== "img") {
+        if(tag !== "img") {
             e.removeAttribute("src");
         }
         if(["tr","td","tbody","th","table"].indexOf(e.tagName.toLowerCase()) > -1) {
             e.removeAttribute("class");
         }
-        if(allowed_tags.indexOf(e.tagName.toLowerCase()) === "script") {
-            e.innerHTML = "";
+        if(tag === "script") {
+            e.innerHTML = ""
         }
         
     })

@@ -1,5 +1,5 @@
 @import "../../styleVariables.scss";
-
+/*
 .overviewContainer {
     height: 440px;
     position:relative; 
@@ -105,5 +105,107 @@ h2.h2 {
     > div:last-child {
         font-size: 20px;
         line-height: 22px;
+    }
+}
+*/
+
+.textContainer {
+    padding: 48px 20px;
+    color: #003865 !important;
+}
+.h2 {
+    font-size: 35px;
+    line-height: (35/32);
+    margin-bottom: 24px;
+    color: #003865 !important;
+}
+.contentContainer {
+    position: relative;
+    height: 316px;
+    margin: 0 20px 48px;
+}
+.diagram {
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 316em;
+    height: 316em;
+    margin-right: 24px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.16);
+    font-size: 1px; 
+    border-radius: 16em; 
+    > div {
+        color:white;
+        line-height: 1;
+        font-weight: 300;
+        color:white; 
+        pointer-events: none;
+        &:nth-child(1) {
+            display:block; 
+            top: 50%;
+            left: 0px;
+            text-align: center;
+            line-height: 1;
+            position: absolute;
+            margin-left: 26em; 
+            transform: translate(-50%, -50%) rotate(-90deg);
+            span {
+                color: #868D95;
+                font-size: 22em;
+            }
+        }
+        &:not(:nth-child(1)) {
+            left: 72em;
+            top: 12em;
+            width: 200em;
+            position:absolute;
+            > div:first-child {
+                font-size: 11em;
+            }
+            > div:last-child {
+                font-size: 20em;
+                line-height: (22/20);
+            }
+
+        }
+        &:nth-child(3) {
+            top: 75em;
+        }
+        &:nth-child(4) {
+            top: 140em;
+            color: #003865;
+        }
+    }
+
+}
+.rightLinks {
+    position:absolute;
+    right: 0;
+    top: 0;
+    width: calc(100% - (316px + 24px));
+    height: 100%;
+    > a {
+        display:block;
+        color: white; 
+        height: calc( (100% - 48px)  / 3);
+        text-decoration: none !important;
+        background:#003865; 
+        position:relative;
+        box-shadow: 0px 0px 12px rgba(30, 32, 34, 0.1);
+        &:not(:first-child) {
+            margin-top: 24px;
+        }
+        span {
+            display:block;
+            position:absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            line-height: 1;
+            font-size: 32px; 
+        }
+        &:last-child {
+            background: linear-gradient(260.49deg, #EE3D8B 0%, #00ACED 101.04%);
+        }
     }
 }

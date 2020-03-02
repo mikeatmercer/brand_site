@@ -19,8 +19,8 @@ const {
 
 const {grifoHeadline} = sharedStyles
 
-export default function({mod, clickScroll, alert}) {
-
+export default function({mod, clickScroll, alert, order}) {
+    let showAlert = (alert && order === 0);
     let body  = bodyContent(mod.html),
         text = $(body).clone();
     $(text).find("h1, a, img").remove();
@@ -34,7 +34,7 @@ export default function({mod, clickScroll, alert}) {
         );
     });
     
-    return <div class={`${tSec} ${attClasses} ${(alert)? wAlert : ""}`}>
+    return <div class={`${tSec} ${attClasses} ${(showAlert)? wAlert : ""}`}>
         {imgBg}
         <div class={`${contentBox} ${(img.length)?hasBgImg: ""}`}>
             {(attTrue(mod.attributes,"noTitle"))? null:<div class={kicker}>{mod.header}</div>}

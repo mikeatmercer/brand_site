@@ -4,16 +4,13 @@ import sharedStyles from "../../sharedStyles.scss";
 
 const {
     grifoHeadline,
-    readingText,
-    makeNavy
 } = sharedStyles;
 const {
-    overviewContainer, 
     textContainer,
     h2,
     diagram,
-    headerSize,
-    infoList
+    contentContainer,
+    rightLinks
 } = style
 
 export default function({mod,clickScroll}) {
@@ -37,12 +34,41 @@ export default function({mod,clickScroll}) {
     })
     
     let digLink = [];
+    let diagramLink = {}
     $(body).find("a").each((i,e) =>{
-        let text = $(e).text().trim()
-    digLink.push(<a data-text={text} onClick={clickScroll} href={$(e).attr("href")} class><span class={grifoHeadline}>{text}</span>{(i === 0)? <div class={infoList}>{infoBlocks}</div>: null}</a>)
-    } );
- 
+        let text = $(e).text().trim(),
+            url = $(e).attr("href")
 
+        if(i === 0) {
+            diagramLink = {
+              url:  url,
+              text: text
+            }
+            return ; 
+        }
+        
+    digLink.push(<a data-text={text} onClick={clickScroll} href={url} ><span class={grifoHeadline}>{text}</span></a> );
+    })
+    
+    return <div>
+        <div class={textContainer}>
+            <h2 class={`${h2} ${grifoHeadline}`}>{mod.header}</h2>
+            <div  dangerouslySetInnerHTML={{__html: $(text).text().trim()}} />
+        </div>
+        <div class={contentContainer}>
+            <a href={diagramLink.url} onClick={clickScroll} class={diagram} style={{backgroundImage: `url(${$(body).find("img").attr("src")})`}}>
+                <div><span class={grifoHeadline}>{diagramLink.text}</span></div>
+                {infoBlocks}
+            </a>
+            <div class={rightLinks}>
+                {digLink}
+            </div>
+        </div>
+    </div>
+
+}
+
+/*
     return <div class={overviewContainer}>
         <div class={textContainer}>
             <h2 class={`${h2} ${grifoHeadline} ${makeNavy} ${headerSize}`}>{mod.header}</h2>
@@ -56,4 +82,4 @@ export default function({mod,clickScroll}) {
             
         </div>
     </div>
-}
+    */

@@ -1,6 +1,6 @@
 import bodyContent from "../util/bodyContent.js";
 import {readingText, textFullWidth, headerPad} from "../sharedStyles.scss";
-import style from "./styles.scss"
+
 import SectionHeader from "../SectionHeader";
 import {attTrue} from "../util/attFinders.js"
 

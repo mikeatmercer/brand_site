@@ -34,23 +34,15 @@ export default function({mod, allMods}) {
        
     });
     let isRight = (userList.length > 0);
-    let rightComp = null;
-    if(isRight) {
-        rightComp = <div class={rightCol}>
-            <Header text={userList[0].header} />
-            <UserList html={userList[0].html} />
-        </div>
-    }
-    
     
 
-    let body = bodyContent(mod.html),
-        header = (!attTrue(mod.attributes, "noTitle")) ? <Header text={mod.header} /> : null;
+    let body = bodyContent(mod.html)
+    
     return <div class={`${topText} ${(isRight) ? wRight : ""}`}>
         <div class={`${leftCol} ${textContainer} ${($(body).text().length < 500) ? shortText : ""}`}>
-            {header}
+            {(!attTrue(mod.attributes, "noTitle")) ? <Header text={mod.header} /> : null}
             <div class={`${readingText} `} dangerouslySetInnerHTML={{__html: $(body).html().trim()}} />
         </div>
-        {rightComp}
+        {(isRight) ? <div class={rightCol}><Header text={userList[0].header} /><UserList html={userList[0].html} /></div> : null}
     </div>
 }

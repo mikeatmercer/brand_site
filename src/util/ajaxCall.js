@@ -1,6 +1,6 @@
 import $ from "jquery"
 
-export default function(url, callback, method="GET") {
+export default (url, callback, method="GET") => {
     $.ajax({
         type: method,
         url: url,

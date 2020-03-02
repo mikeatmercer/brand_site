@@ -23,7 +23,7 @@ h1.h1 {
     color: white; 
     font-size: 90px;
     line-height: (94/90);
-    margin-bottom: 48px; 
+    margin-bottom: (48em/90);
     font-size: 51px;
     .tall & {
         font-size: 90px;
@@ -35,6 +35,7 @@ h1.h1 {
 .contentBox {
     
     margin-left: 20px;
+    margin-right: 20px;
     padding-top: 36px;
     padding-bottom: 72px;
     color: white; 
@@ -72,6 +73,7 @@ h1.h1 {
     line-height: (32 / 25);
     font-weight: 100;
     margin-bottom: 24px;
+    max-width: 652px;
     p {
         line-height: inherit;
     }

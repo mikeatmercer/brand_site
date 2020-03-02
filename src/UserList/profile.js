@@ -24,8 +24,8 @@ export default function(p) {
         let newData = {
          name: d.DisplayName.split(",").reverse().map(e => e.trim()).join(" "),
          url : "http://mysites.mercer.com/Person.aspx?accountname="+d.AccountName,
-         imgURL :(!d.PictureUrl) ? "" : d.PictureUrl.replace(":80",""),
-         title : (jobTitle.length) ? jobTitle[0].Value : ""     
+         imgURL :(d.PictureUrl|| "").replace(":80",""),
+         title : jobTitle[0].Value || ""     
          }
         updateProfile(newData);
     }
@@ -45,14 +45,14 @@ export default function(p) {
         name,
         title
     } = profile
-    let nameSplit = (name) ? name.split(" ").filter(e => e.length > 0) : [];
+    let nameSplit = (name) ? name.split(" ").filter(e => e.length > 0).map(e=>e.charAt(0)).join("") : "";
   
     return <li class={profileItem}>
          <a 
          href={url || null} 
          style={{backgroundImage: (profile.imgURL)? `url(${profile.imgURL})` : null}} 
          class={`${profileImage} ${(imgURL)? wImg : ""}`} 
-         data-init={`${(nameSplit.length > 1) ? nameSplit[0].charAt(0)+nameSplit[1].charAt(0) : ""}`}>
+         data-init={`${(nameSplit.length > 1) ? nameSplit : ""}`}>
             <img src={imgURL} />
         </a>
         <div class={profileText}>

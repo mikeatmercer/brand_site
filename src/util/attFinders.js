@@ -1,5 +1,5 @@
 
-const attTrue = function(list = [], att = null) {
+const attTrue = (list = [], att = null) => {
     
     if(list.indexOf(att) > -1) {
         return true;
@@ -8,7 +8,7 @@ const attTrue = function(list = [], att = null) {
     }
 }
 
-const varFind = function(list = [], variable = null) {
+const varFind = (list = [], variable = null) => {
     let attMatch = list.filter(e => e.indexOf(variable) > -1);
     if(!attMatch.length) {
         return false;
