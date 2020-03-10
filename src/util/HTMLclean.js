@@ -13,10 +13,12 @@ export default function(s) {
    
     domBody.querySelectorAll("*").forEach((e) => {
        let tag = e.tagName.toLowerCase(0);
-        e.removeAttribute("style");
+      
         if(tag !== "img") {
             e.removeAttribute("src");
         }
+     
+
         if(["tr","td","tbody","th","table"].indexOf(e.tagName.toLowerCase()) > -1) {
             e.removeAttribute("class");
         }

@@ -30,12 +30,13 @@ export default function(p) {
         updateProfile(newData);
     }
     useEffect(() => {
-     
+    
        let account = p.email.split("=")
        if(account.length < 2) {
            return 
        }
-       ajaxCall(`${SITE_HOST}/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v=%27${account[1]}%27`,profileData)
+      
+       ajaxCall(`${SITE_HOST}/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v=%27${account[1].replace(/[^\w\s\-%]/gi, '')}%27`,profileData)
 
     },[])
 
