@@ -24,6 +24,9 @@
     position:relative;
     display:block;
     text-decoration: none !important;
+    &:not(.flat).whiteBG {
+        background: #F6F7F9;
+    }
     > * {
         position:relative;
     }
@@ -164,4 +167,20 @@
     bottom: 0;
     width: 100%;
     height: 100%; 
+}
+.brightSideBug {
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, #EE3D8B 0%,#EE3D8B 50%,transparent 50%,transparent 100%);
+    > svg {
+        fill:white; 
+        width: 36px;
+        height: 36px;
+        position: absolute;
+        left: 8px;
+        top: 8px;
+    }
 }

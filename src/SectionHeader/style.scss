@@ -19,6 +19,10 @@
             color: #007bb7;
         }
     }
+    &.brightSide {
+        padding-left: 105px;
+        position:relative; 
+    }
 }
 .top {
     display: flex;
@@ -31,4 +35,18 @@
 .subTitleClass {
     width: $text-half-width;
     margin-top: 8px; 
+    &.brightSide {
+        color: $slate-kicker;
+        width: 826px;
+    }
+}
+.bsIcon {
+    position:absolute;
+    left: 20px;
+    top: 34px;
+    > svg {
+        fill: $slate-kicker;
+        width: 61px;
+        height: 61px;
+    }
 }

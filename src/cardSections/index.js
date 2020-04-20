@@ -24,6 +24,7 @@ const {
     iconHolder, 
     cardIcon,
     dlLink,
+    brightSideBug
 } = cardStyles
 const {
     grifoHeadline,
@@ -56,7 +57,9 @@ const CardRow = ({items,attrClass}) => {
             let hasLink = (linkURL),
                 isIcon = attTrue(atts, "icons");
             let interior = <Fragment>
-                {(imgURL && !isIcon ) ? <div class={cardImg} style={{backgroundImage: `url(${imgURL})`}}></div> : null}
+                {(imgURL && !isIcon ) ? <div class={cardImg} style={{backgroundImage: `url(${imgURL})`}}>
+        {(attTrue(atts,"brightside"))? <div class={brightSideBug}>{SVG("bscloud")}</div> : null}
+                </div> : null}
                  {(imgURL && isIcon ) ? <div class={iconHolder}><img src={imgURL} class={cardIcon}/></div> : null}
                 <div class={cardText}>
                     {(kicker) ? <div class={cardKicker}>{kicker}</div> : null}

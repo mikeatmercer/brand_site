@@ -18,7 +18,7 @@ export default function(s) {
             e.removeAttribute("src");
         }
      
-
+  
         if(["tr","td","tbody","th","table"].indexOf(e.tagName.toLowerCase()) > -1) {
             e.removeAttribute("class");
         }
