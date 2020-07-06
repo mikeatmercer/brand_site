@@ -18,6 +18,9 @@
         &:hover {
             color: #007bb7;
         }
+        @media print {
+            display:none; 
+        }
     }
     &.brightSide {
         padding-left: 105px;

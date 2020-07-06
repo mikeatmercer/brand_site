@@ -88,6 +88,9 @@ h1.h1 {
     background-repeat: no-repeat;
 }
 .btnHolder {
+    @media print {
+        display:none;
+    }
     > * {
         margin-right: 24px;
     }

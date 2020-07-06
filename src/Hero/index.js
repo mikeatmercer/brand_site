@@ -29,8 +29,10 @@ export default function({mod, clickScroll, alert, order}) {
     let attClasses = mod.attributes.map(e => styles[e]).join(" ");
     let btns = [];
     $(body).find("a").each(function(i,e){
+        let url = $(e).attr('href');
+        let outbound = ($(e).attr("target") === "_blank");
         btns.push(
-            <Btn style={"reverse"} text={$(e).text().trim()} clickHandler={clickScroll} href={$(e).attr('href')} />
+            <Btn style={"reverse"} outbound={outbound} text={$(e).text().trim()} clickHandler={(!outbound)?clickScroll:null} href={url} />
         );
     });
     

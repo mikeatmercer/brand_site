@@ -8,25 +8,40 @@
 .aItem {
     margin: 0 20px;
     border-top: 1px solid #D5D9E0;
+    @media print {
+        border-top-color: #003865;
+    }
     
     &:last-child {
         border-bottom: 1px solid #D5D9E0;
     }
     &.isOpenClass {
         border-top-color: #003865;
+        
     }
 }
 .textContent {
     display:none; 
     margin-bottom: 1em;
+    @media print {
+        display:block !important;
+    }
     > *:last-child {
         margin-bottom: 0;
     }
+}
+.localHeader  {
+    @media print {
+        display:none; 
+    } 
 }
 .aHeader {
     position: relative;
     padding: 16px 0 16px 38px;
     display:block;
+    @media print {
+        padding-left: 0;
+    }
     &Container {
         display: flex;
         align-items: flex-end;
@@ -45,6 +60,9 @@
         top: calc(50% - 1px);
         width: 14px;
         height: 2px;
+        @media print {
+            display:none !important; 
+        }
     }   
     &:after {
         width: 2px;

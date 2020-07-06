@@ -3,6 +3,9 @@ $height : 35px;
 .barContainer {
     position:relative;
     height: $height; 
+    @media print {
+        display:none;
+    }
 }
 .barNav {
     height: $height;

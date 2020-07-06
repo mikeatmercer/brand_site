@@ -15,6 +15,9 @@
 }
 .cardRow {
     display:flex;
+    @media print {
+        page-break-inside: avoid;
+    }
 }
 .cardItem {
     width: calc( (100% / 3) - ( (24px * 2) / 3  ) );
@@ -24,6 +27,9 @@
     position:relative;
     display:block;
     text-decoration: none !important;
+    @media print {
+        page-break-inside :avoid;
+    }
     &:not(.flat).whiteBG {
         background: #F6F7F9;
     }
@@ -93,9 +99,15 @@
     }
     .wLink & {
         padding-bottom: (24px * 3);
+        @media print {
+            padding-bottom: 24px;
+        }
     }
     .wLink.flat & {
         padding-bottom: (24px * 2);
+        @media print {
+            padding-bottom: 0;
+        }
     }
 }
 .cardImg {
@@ -118,6 +130,9 @@
         width: 100%;
         left: 0;
         bottom: 0;
+    }
+    @media print {
+        display: none; 
     }
 }
 .cardLinka {

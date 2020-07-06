@@ -15,6 +15,7 @@ import {greyBG} from "./sharedStyles.scss";
 import Alert from "./Alert";
 import ajaxCall from "./util/ajaxCall.js";
 import {useState,useEffect, useRef} from "preact/hooks";
+import isHome from "./util/isHome.js"
 
 
 function parseMods() {
@@ -131,7 +132,7 @@ export default function () {
             return;
         }
 
-        return <div class={(attTrue(e.attributes, "greyBG") ? greyBG : null)} id={e.type} ref={scrollSections[e.type]}>{chi}</div>
+        return <div  class={`  ${style.sectionContainer} ${(isHome())? style.homeBreaks: ""} ${(attTrue(e.attributes, "greyBG") ? greyBG : null)}`} id={e.type} ref={scrollSections[e.type]}>{chi}</div>
 
     });
     

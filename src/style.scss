@@ -49,3 +49,13 @@
 .globalstrategyapp *, .globalstrategyapp *:before, .globalstrategyapp *:after{
     box-sizing: border-box;
 }
+
+@media print {
+    :global(#s4-titlerow), :global(header) {
+        display:none !important;
+    }
+    .sectionContainer.homeBreaks {
+        page-break-inside: avoid;
+      
+    }
+}
