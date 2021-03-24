@@ -1,0 +1,25 @@
+@import "../styleVariables.scss";
+.mapOuter {
+    padding: 48px 0 0 ;
+    text-align: center;
+    display:flex;
+    justify-content: center;
+}
+
+.clickArea {
+    display:block;
+    background: red;
+    opacity: 0;
+    position:absolute; 
+}
+.instructionText {
+    text-align: left;
+    color: $bg-blue;
+    margin-bottom: 24px;
+}
+.mapInner {
+    position:relative; 
+    img {
+        display:block;
+    }
+}

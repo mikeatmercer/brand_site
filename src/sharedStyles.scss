@@ -15,12 +15,23 @@
     font-family: "Grifo", "Times New Roman", serif !important; 
     font-weight: bold;
 }
+.blueBG {
+    background: $bg-blue; 
+    color: white; 
+    a {
+        color: #76D3FF !important;
+    }
+}
 .readingText {
     font-size: 16px;
     line-height: (24 / 16);
+    position: relative;
     p {
         font-size: inherit;
         line-height: inherit;
+    }
+    br:last-child {
+        display:none;
     }
     h1,h2,h3,h4 {
         margin-bottom: .5em;

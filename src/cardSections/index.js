@@ -3,7 +3,7 @@ import cardStyles from "./cardStyles.scss";
 import shareStyles from "../sharedStyles.scss";
 import bodyContent from "../util/bodyContent.js";
 import {Fragment} from "preact";
-import {attTrue} from "../util/attFinders.js"
+import {attTrue, varFind} from "../util/attFinders.js"
 import isHome from "../util/isHome.js";
 import SectionHeader from "../SectionHeader";
 import SVG from "../util/SVG.js";
@@ -54,8 +54,10 @@ const CardRow = ({items,attrClass}) => {
     },[])
 
         let cList = items.map(({atts,linkText,kicker,title,content,imgURL,linkURL},i)=>{
+            let bgColor = varFind(atts, "cardColor");
             let hasLink = (linkURL),
                 isIcon = attTrue(atts, "icons");
+     
             let interior = <Fragment>
                 {(imgURL && !isIcon ) ? <div class={cardImg} style={{backgroundImage: `url(${imgURL})`}}>
         {(attTrue(atts,"brightside"))? <div class={brightSideBug}>{SVG("bscloud")}</div> : null}
@@ -64,7 +66,7 @@ const CardRow = ({items,attrClass}) => {
                 <div class={cardText}>
                     {(kicker) ? <div class={cardKicker}>{kicker}</div> : null}
                     {(title) ? <h2 style={{height: (height || "auto")}} ref={headers[i]} class={`${grifoHeadline} ${makeNavy}`}>{title}</h2> : null}
-                    <div class={`${readingText} ${makeNavy}`}>{content.trim()}</div>
+                    {(content.trim())? <div class={`${readingText} ${makeNavy}`}>{content.trim()}</div> : null}
                 </div>
                 {(hasLink)? <CardLink text={linkText} /> : null}   
             </Fragment>
@@ -72,6 +74,7 @@ const CardRow = ({items,attrClass}) => {
             return h((hasLink)? "a": "div", 
             {
                 class: `${cardItem} ${attrClass} ${(hasLink)?wLink:null}`, 
+                style: (bgColor)? `background-color: ${bgColor}`: null,
                 href:hasLink|| null
             }, 
             interior);
@@ -150,12 +153,14 @@ function CardList({mod, attrClass}) {
 
 
 export default function({mod,clickScroll}) {
+    
     let attrClass = mod.attributes.map(e => cardStyles[e]).join(" ")
-    let overviewBtn = (isHome())? <a href="#overview" onClick={clickScroll}>Back to overview</a> : null;
+    let overviewBtn = (isHome() && !attTrue(mod.attributes, "noAnchor"))? <a href="#topGraphic" onClick={clickScroll}>Back to top</a> : null;
     let sub = $(bodyContent(mod.html)).find("h3:first");
     return <div class={`${cardSection} ${attrClass}`}>
-        <SectionHeader attributes={mod.attributes} link={overviewBtn} title={mod.header} subTitle={(sub.length)? $(sub).text() : null}/>
+        <SectionHeader attributes={mod.attributes} link={overviewBtn} title={mod.header} subTitle={(sub.length)? $(sub).html() : null}/>
         
         <CardList mod={mod} attrClass={attrClass}/>
     </div>
 }
+

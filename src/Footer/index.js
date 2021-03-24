@@ -10,6 +10,6 @@ export default function(p) {
    
     return <div class={btnContainer}>
         <Btn href={"#top"} text={"Back to top"} clickHandler={p.clickScroll} style={"reverse"}/>
-        {(!isHome()) ? <Btn text={"Our strategy home"} href={HOME_URL} style={"primary"} /> : null}
+        {(!isHome()) ? <Btn text={"Our journey home"} href={HOME_URL} style={"primary"} /> : null}
     </div>
 }

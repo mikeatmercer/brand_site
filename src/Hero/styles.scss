@@ -1,4 +1,5 @@
 @import "../sharedStyles.scss";
+@import "../styleVariables.scss";
 
 .tSec {
     
@@ -47,12 +48,15 @@ h1.h1 {
         padding-top: 72px;
         
     }
-    .wAlert & {
-        padding-top: (36px + 16px + 56px);
+    @media not print {
+        .wAlert & {
+            padding-top: (36px + 16px + 56px);
+        }
+        .wAlert.tall & {
+            padding-top: (72px + 16px + 56px);
+        }
     }
-    .wAlert.tall & {
-        padding-top: (72px + 16px + 56px);
-    }
+    
     &.hasBgImg {
         width: 652px;
     }
@@ -94,4 +98,36 @@ h1.h1 {
     > * {
         margin-right: 24px;
     }
+}
+.callout {
+    position:absolute;
+    right: 0;
+    bottom: 0;
+    width: 245px;
+    background: $bg-blue;
+    padding: 24px;
+    text-decoration: none !important;
+    $upper-root: &;
+    &Headline {
+        display:block;
+        color: white; 
+        font-size: 26px;
+        line-height: (29/26);
+    }
+    &Kick {
+        color: #76D3FF;
+        display:flex;
+        align-items: center;
+        margin-top: 12px;
+        svg {
+            margin-left: 6px;
+            width: 16px;
+            height: 16px;
+            fill: currentColor
+        }
+        #{$upper-root}:hover & {
+            text-decoration: underline;
+        }
+    }
+    
 }

@@ -18,7 +18,7 @@ export default function(p) {
             scroller = (isHome()) ? p.clickScroll : null
 
     const navData = (d) => {
-        console.log(d)
+      
         if(!d.results.length) {
             return; 
         }

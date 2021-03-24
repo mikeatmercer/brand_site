@@ -10,6 +10,9 @@
         left: auto;
         top: auto; 
     }
+    @media print {
+        display:none; 
+    }
 }
 .alertBar {
     position: relative;

@@ -3,9 +3,28 @@
 
 .sectionHeader {
     padding: 48px 20px 48px 20px;
+    &.copyCentered {
+        width: 826px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
     &.shortClass {
         padding-bottom: 24px; 
     }
+    &.blueBG {
+        h2 {
+            color: white; 
+        }
+    }
+    &.hMargin24 {
+        padding-bottom: 24px; 
+    }
+    &.hMargin12 {
+        padding-bottom: 12px; 
+    }
+    
     h2 {
    
         color: $slate-kicker;
@@ -38,9 +57,13 @@
 .subTitleClass {
     width: $text-half-width;
     margin-top: 8px; 
+    color: $bg-blue;
     &.brightSide {
         color: $slate-kicker;
         width: 826px;
+    }
+    &.longText {
+        width: 656px;
     }
 }
 .bsIcon {

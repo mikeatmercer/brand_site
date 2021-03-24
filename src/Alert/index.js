@@ -17,6 +17,7 @@ export default function({alert, onHero}){
 
     function closeClick(e) {
         e.preventDefault();
+        localStorage.getItem("dismissed_alert_"+alert.ID);
         localStorage.setItem("dismissed_alert_"+alert.ID, "yes"); 
         $(global.alertCloser).trigger("alert_closed");
     }

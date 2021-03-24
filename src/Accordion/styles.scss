@@ -4,6 +4,7 @@
     padding-bottom: 48px;
    
 }
+$left-padding: 38px;
 
 .aItem {
     margin: 0 20px;
@@ -22,6 +23,7 @@
 }
 .textContent {
     display:none; 
+    padding-left: $left-padding;
     margin-bottom: 1em;
     @media print {
         display:block !important;
@@ -36,20 +38,56 @@
     } 
 }
 .aHeader {
+    $headerClass: &;
     position: relative;
-    padding: 16px 0 16px 38px;
+    padding: 16px 0 16px $left-padding;
     display:block;
+    cursor:pointer; 
     @media print {
         padding-left: 0;
     }
+    &Expand {
+        position:absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0,-50%);
+    }
     &Container {
         display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: flex-start;
     }
     &Text {
+        #{$headerClass}:hover & {
+            text-decoration: underline;
+        }
         color: $link-blue;
         font-weight: 700; 
+        min-width: 364px;
+    }
+    &Pill {
+        background: black; 
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        color:white; 
+        line-height: 24px;
+        border-radius: 12px;
+        padding: 0 8px;
+        display:inline-block;
+        &--Simplify {
+            background: #EE3D8B;
+        }
+        &--Belong {
+            background: #00AC41;
+        }
+        &--Impact {
+            background: #8246AF
+        }
+        &Container {
+            width: 84px;
+            margin-left: 24px;
+        }
     }
     &:before, &:after {
         display:block;

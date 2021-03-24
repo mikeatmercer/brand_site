@@ -11,11 +11,12 @@ import Accordion from "./Accordion";
 import PageCopy from "./PageCopy";
 import Footer from "./Footer"; 
 import {varFind,attTrue} from "./util/attFinders.js";
-import {greyBG} from "./sharedStyles.scss";
+import {greyBG, blueBG} from "./sharedStyles.scss";
 import Alert from "./Alert";
 import ajaxCall from "./util/ajaxCall.js";
 import {useState,useEffect, useRef} from "preact/hooks";
 import isHome from "./util/isHome.js"
+import AreaMap from "./AreaMap";
 
 
 function parseMods() {
@@ -25,10 +26,14 @@ function parseMods() {
         if($(e).find(".ms-hide").length) {
             return ;
         }
-        let title = $(e).find(".js-webpart-titleCell"),
-            data = ($(title).attr("title") || "null-null").split("-")[1].split("_");
+        let d = new Date()
+        let title = $(e).find(".js-webpart-titleCell")
+        let mTitle = $(title).text().trim()
+        
+        let attrdata = ($(title).attr("title") || "null-null").replace(mTitle, d.getTime())
+        let data = attrdata.split("-")[1].split("_");
         let item = {
-            header: $(title).text(),
+            header: mTitle,
             type: data[0].trim(),
             html: HTMLclean($(e).html()),
             attributes: (data[1]) ? data[1].split("|").map(e => e.trim()) : [] 
@@ -37,6 +42,7 @@ function parseMods() {
       
         mods.push(item);
     });
+  
     
     return mods; 
 }
@@ -45,13 +51,14 @@ export default function () {
     const [mods] = useState(parseMods());
 
     const [alert, updateAlert] = useState(null);
-    const realSections = ["Hero", "Overview", "Cards" , "SummaryText", "AccordionHeader", "PageCopy"];
+    const realSections = ["Hero", "Overview", "Cards" , "SummaryText", "AccordionHeader", "PageCopy","AreaMap","Callout"];
     let liveSections = mods.filter(e => realSections.indexOf(varFind(e.attributes, "type")) > -1 );
     let scrollSections = {navBar: useRef(null) };
     
     liveSections.forEach((e)=> {
         scrollSections[e.type] = useRef(null)
     });
+    console.log(liveSections);
     
     const scroller = (section) => {
       
@@ -62,14 +69,19 @@ export default function () {
         })
     }
     const clickScroll = (e) => {
+        
         e.preventDefault();
-        scroller(e.currentTarget.getAttribute("href").replace("#",""))
+        let theTarget = e.currentTarget || e.target;
+        scroller(theTarget.getAttribute("href").replace("#",""))
     }
     useEffect(()=>{
-        /*if(PRODUCTION_BUILD) {
+        if(PRODUCTION_BUILD) {
             $("#contentRow").remove();
-        }*/
-        $("#contentRow").remove();
+        }
+        $(window).load(function(){
+            $(window).trigger('resize');
+        })
+        //$("#contentRow").remove();
         
         var l = location.hash.replace("#","");
         if(Object.keys(scrollSections).indexOf(l) > -1) {
@@ -127,12 +139,17 @@ export default function () {
                 break;
             case "PageCopy" : 
                 chi = <PageCopy {...props} />
+                break;
+            case "AreaMap" : 
+                chi = <AreaMap {...props} />
+                break;
+            
         }
         if(!chi) {
             return;
         }
 
-        return <div  class={`  ${style.sectionContainer} ${(isHome())? style.homeBreaks: ""} ${(attTrue(e.attributes, "greyBG") ? greyBG : null)}`} id={e.type} ref={scrollSections[e.type]}>{chi}</div>
+        return <div  class={`  ${style.sectionContainer} ${(isHome())? style.homeBreaks: ""} ${(attTrue(e.attributes, "greyBG") ? greyBG : null)}  ${(attTrue(e.attributes, "blueBG") ? blueBG : null)}`} id={e.type} ref={scrollSections[e.type]}>{chi}</div>
 
     });
     

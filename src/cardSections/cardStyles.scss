@@ -19,6 +19,7 @@
         page-break-inside: avoid;
     }
 }
+
 .cardItem {
     width: calc( (100% / 3) - ( (24px * 2) / 3  ) );
     flex: none;
@@ -27,6 +28,13 @@
     position:relative;
     display:block;
     text-decoration: none !important;
+    &.centered {
+        text-align: center;
+        .iconHolder {
+           margin: 24px auto 0 auto;
+        }
+    }
+    
     @media print {
         page-break-inside :avoid;
     }
@@ -51,6 +59,9 @@
         font-size: 26px;
         line-height: (29/26);
         margin-bottom: 24px;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
     p {
         line-height: (24 /16);
@@ -59,7 +70,8 @@
          flex: 1;
          width: auto; 
     }
-    &.wLink:before {
+    
+    &.raised:before,&.wLink:before {
         transition: all .25s;
         display:block;
         content: "";
@@ -71,7 +83,10 @@
         height: 100%;
         cursor: pointer;
     }
-    &:hover:before {
+    &.raised:before {
+        box-shadow: 0 0 4px rgba(#1E2022,.08), 0 0 4px rgba(#1E2022, .08) 
+    }
+    &.wLink:hover:before {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
     }
     &.wLink.flat:before {
@@ -166,6 +181,7 @@
     .flat & {
         margin: 0 0 24px 0;
     }
+
 }
 .cardIcon {
     position:absolute;

@@ -1,5 +1,5 @@
 
-export default (svg, classString) => {
+export default (svg, classString="") => {
     let inside = null;
     let  height = 24;
     let width = 24;  
