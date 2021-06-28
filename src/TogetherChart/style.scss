@@ -1,0 +1,62 @@
+@import "../styleVariables.scss";
+@import "../sharedStyles.scss";
+
+.chartContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0 20px;
+    > * {
+        width: 316px;
+        min-height: 316px;
+        margin-left: 21px;
+        margin-top: 24px;
+        &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+            margin-top: 0;
+        }
+        &:nth-child(3n+1) {
+            margin-left: 0;
+        }
+    }
+}
+.cardHeader {
+    @include cardHeader();
+    @include grifoHeadline();
+}
+.card {
+    position:relative;
+    padding: 24px;
+    background: $bg-grey;
+    box-shadow: 0 0 4px rgba(#1E2022,.08), 0 0 4px rgba(#1E2022, .08) ;
+    &:before {
+        display:block;
+        content: "";
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #1D9CDF;
+    }
+    &.geographies {
+        &:before {
+            background: #8246AF;
+        }
+    }
+    &.operationstechnology {
+        &:before {
+            background: linear-gradient(270deg, #009DE0 0%, #8246AF 100%);
+        }
+    }
+    &.gbs {
+        &:before {
+            background: linear-gradient(270deg, #8246AF 0%, #009DE0 100%);
+        }
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-position: inside;
+        line-height: (24/16);
+    }
+}

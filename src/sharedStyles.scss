@@ -11,9 +11,12 @@
 .greenGradient {
     @include green-gradient();
 }
-.grifoHeadline {
+@mixin grifoHeadline {
     font-family: "Grifo", "Times New Roman", serif !important; 
     font-weight: bold;
+}
+.grifoHeadline {
+    @include grifoHeadline()
 }
 .blueBG {
     background: $bg-blue; 
@@ -127,4 +130,12 @@ a.headerLink, .headerLink {
 }
 .headerPad {
     padding-top: 48px;
+}
+@mixin cardHeader {
+    font-size: 26px;
+    line-height: (29/26);
+    margin-bottom: 24px;
+}
+.cardHeader {
+    @include cardHeader()
 }

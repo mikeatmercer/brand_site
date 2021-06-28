@@ -11,6 +11,6 @@ export default function(p) {
             return false;
         }
     }
-
+    
     return <a target={(p.outbound)?"_blank": ""} class={`${btn} ${styles[p.style]}`} href={p.href} onClick={clickHandler}><span>{p.text}</span></a>
 }

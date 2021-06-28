@@ -1,4 +1,5 @@
 @import "../styleVariables.scss";
+@import "../sharedStyles.scss";
 
 .cardSection {
     background: #F6F7F9;
@@ -56,9 +57,7 @@
         margin-bottom: 8px;
     }
     h2 {
-        font-size: 26px;
-        line-height: (29/26);
-        margin-bottom: 24px;
+        @include cardHeader(); 
         &:last-child {
             margin-bottom: 0;
         }

@@ -17,7 +17,9 @@ export default function({title, subTitle, link, short, attributes}) {
     }
   
 
-    return <div class={`${sectionHeader} ${(customMargin)? styles[`hMargin${customMargin}`]  : "" } ${(short) ? shortClass : ""} ${bsClass} ${(attTrue(attributes,"blueBG")? blueBG: "")} ${(attTrue(attributes,"copyCentered")? styles["copyCentered"]: "")}`}>
+    return <div class={`${sectionHeader} ${(customMargin)? styles[`hMargin${customMargin}`]  : "" } ${(short) ? shortClass : ""} ${bsClass} ${(attTrue(attributes,"blueBG")? blueBG: "")} ${(attTrue(attributes,"copyCentered")? styles["copyCentered"]: "")}`}
+                style={{paddingTop: ( attTrue(attributes, "zeroVertical")) ? 0 : ""}}
+            >
             {(attTrue(attributes,"brightside"))? <div class={bsIcon}>{SVG("bscloud")}</div>: null}
             <div class={`${top} ${(withoutTitle || !title)? noTitle : ""} ${bsClass}`}>
             {(withoutTitle|| !title) ? null : <h2 class={`${muteImportant}`}>{title}</h2> }

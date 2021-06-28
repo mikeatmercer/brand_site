@@ -17,6 +17,7 @@ import ajaxCall from "./util/ajaxCall.js";
 import {useState,useEffect, useRef} from "preact/hooks";
 import isHome from "./util/isHome.js"
 import AreaMap from "./AreaMap";
+import TogetherChart from "./TogetherChart";
 
 
 function parseMods() {
@@ -51,7 +52,7 @@ export default function () {
     const [mods] = useState(parseMods());
 
     const [alert, updateAlert] = useState(null);
-    const realSections = ["Hero", "Overview", "Cards" , "SummaryText", "AccordionHeader", "PageCopy","AreaMap","Callout"];
+    const realSections = ["TogetherChart","Hero", "Overview", "Cards" , "SummaryText", "AccordionHeader", "PageCopy","AreaMap","Callout"];
     let liveSections = mods.filter(e => realSections.indexOf(varFind(e.attributes, "type")) > -1 );
     let scrollSections = {navBar: useRef(null) };
     
@@ -93,6 +94,10 @@ export default function () {
             }
             let item = d.results[0];
             if(localStorage.getItem("dismissed_alert_"+item.ID) === "yes") {
+                return ; 
+            }
+
+            if(window.location.href.toLowerCase().trim() == item.Link.toLowerCase().trim()) {
                 return ; 
             }
             updateAlert(item)
@@ -143,7 +148,9 @@ export default function () {
             case "AreaMap" : 
                 chi = <AreaMap {...props} />
                 break;
-            
+            case "TogetherChart" :
+                chi = <TogetherChart {...props} />
+                break;
         }
         if(!chi) {
             return;

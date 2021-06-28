@@ -41,6 +41,11 @@ a.btn {
         border: 2px solid white; 
         line-height: 52px;
     }
+    &.bigCTA {
+        display:block;
+        width: 100%;
+        text-align:center; 
+    }
     
 }
 
