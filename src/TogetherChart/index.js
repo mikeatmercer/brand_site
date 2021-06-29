@@ -2,12 +2,14 @@ import SectionHeader from "../SectionHeader"
 import isHome from "../util/isHome";
 import bodyContent from "../util/bodyContent";
 import styles from "./style.scss";
+import { attTrue } from "../util/attFinders";
 
 
 const {
     chartContainer,
     card,
-    cardHeader
+    cardHeader,
+    imgContainer
 } = styles;
 
 export default function({mod,clickScroll}) {
@@ -58,8 +60,10 @@ export default function({mod,clickScroll}) {
     let content = sections.map(function(e,i){
         return <Card content={e} /> 
     })
-    content.splice(1,0, <div>image</div>)
+    
+    content.splice(1,0, <div class={imgContainer}><img src={$(con).find("img").attr("src")} /></div>)
  
+    console.log(isHome())
 
     return <div>
         <SectionHeader attributes={attributes} link={overviewBtn} title={header} />

@@ -7,7 +7,7 @@ const ENV = process.env.NODE_ENV || 'development';
 
 const WORKIP = "10.91.37.19";
 const HOMEIP = "10.3.57.245";
-const HOME_URL = (ENV === "production") ? "http://sites.mercer.com/sites/MercerStrategy/default.aspx" : "http://sites.mercer.com/sites/MercerStrategy/SitePages/homepage_2.aspx";
+const HOME_URL = (ENV === "production") ? "http://sites.mercer.com/sites/MercerStrategy/default.aspx" : "http://sites.mercer.com/sites/MercerStrategy/SitePages/test%20page.aspx";
 
 
 const devCSSLoad = [
