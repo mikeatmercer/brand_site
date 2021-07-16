@@ -20,7 +20,7 @@ export default function({mod,clickScroll}) {
             id,
             items
         } = content
-        let list = items.map(e => <li>{e}</li>);
+        let list = items.map(e => <li dangerouslySetInnerHTML={{__html: e}} />);
         return <div class={`${card} ${styles[id]}`}>
            <div class={cardHeader} >{title}</div> 
            <ul>
@@ -40,14 +40,17 @@ export default function({mod,clickScroll}) {
     
 
     let sections = [];
-  
-    $(con).find("h1").each(function(i,e){
-        
 
+    const uls = con[0].querySelectorAll("ul");
+   
+    
+    $(con).find("h1").each(function(i,e){
         let items = [];
-       $(e).next("ul").find("li").each(function(i,e){
+       $(uls[i]).find("li").each(function(i,e){
+           let html = $(e).html();
+           $(html).unwrap(); 
             items.push(
-                $(e).text()
+                html
             )
         })
     
